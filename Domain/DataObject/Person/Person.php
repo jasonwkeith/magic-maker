@@ -11,8 +11,6 @@ class Person implements PersonInterface
 {
     use GUIDTrait;
 
-    private $dto = array();    
-
     public function __construct( ExceptionFactoryInterface $exception_factory, string $guid, string $first_name, string $middle_name, string $last_name,  string $nickname, string $suffix, bool $has_md, bool $has_phd )
     {
         $this->setExceptionFactory( $exception_factory );

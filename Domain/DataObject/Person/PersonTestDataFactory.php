@@ -97,7 +97,7 @@ class PersonTestDataFactory implements PersonTestDataFactoryInterface, RawPerson
         $persons[ 0 ] = $this->create( $this->createRaw2() );
         $persons[ 1 ] = $this->create( $this->createRaw3() );
         $persons[ 2 ] = $this->create( $this->createRaw4() ); 
-        //$persons[ 3 ] = $this->create( $this->createRaw5() ); 
+        $persons[ 3 ] = $this->create( $this->createRaw5() ); 
         
         return $persons;
     }     

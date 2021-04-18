@@ -234,16 +234,13 @@ class BookTestDataFactory implements BookTestDataFactoryInterface, RawBookTestDa
     public function createRawDefaultSubtitle(): array
     {
         $dto = $this->createRawDefault();
-        $dto[ BookInterface::SUBTITLE ] = $default_dto[ BookInterface::SUBTITLE ];
+        $dto[ BookInterface::SUBTITLE ] = "Insert Great Subtitle Here";
         
         return $dto;
     }     
   
     public function createRawMultipleAuthors(): array
     {
-     
-        $dto = $this->createRawDefault();
-
-        return $dto;
+        return $this->createRawDefault();
     }       
 }

@@ -2,7 +2,7 @@
 declare( strict_types = 1 );
 namespace JasonWKeith\Domain\Interactor\TestDataAPI;
 
-use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;;
+use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
 use JasonWKeith\Domain\Infrastructure\Exception\ExceptionTestDataFactory;
 use JasonWKeith\Domain\Interactor\DataObjectAPI\DataObjectAPIInterface;
 use JasonWKeith\Domain\DataObject\Book\BookTestDataFactory;

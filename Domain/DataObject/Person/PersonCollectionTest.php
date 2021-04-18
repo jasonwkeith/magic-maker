@@ -22,7 +22,7 @@ class PersonCollectionTest extends TestCase
     {
         $i = 0;
         $persons = $this->system_under_test;
-        foreach( $persons as $Person )
+        foreach( $persons as $person )
         {
             $i++;
         }

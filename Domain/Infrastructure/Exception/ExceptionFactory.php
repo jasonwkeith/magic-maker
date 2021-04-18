@@ -9,7 +9,6 @@ class ExceptionFactory implements ExceptionFactoryInterface
 {
 	public function create( string $message ): ExceptionInterface
 	{
-		$exception = new Exception( $message );
-		return $exception;
+		return new Exception( $message );
 	}
 }

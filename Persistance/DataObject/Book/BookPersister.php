@@ -58,27 +58,6 @@ class BookPersister implements BookPersisterInterface
         else
         {
             $data = json_decode( $data, true );
-        
-            switch (json_last_error()) 
-            {
-                case JSON_ERROR_DEPTH:
-                    echo ' - Maximum stack depth exceeded';
-                break;
-                case JSON_ERROR_STATE_MISMATCH:
-                    echo ' - Underflow or the modes mismatch';
-                break;
-                case JSON_ERROR_CTRL_CHAR:
-                    echo ' - Unexpected control character found';
-                    $data = array();
-                break;
-                case JSON_ERROR_SYNTAX:
-                    //throw $this->createException("bs" );
-                    echo ' - Syntax error, malformed JSON';
-                break;
-                case JSON_ERROR_UTF8:
-                    echo ' - Malformed UTF-8 characters, possibly incorrectly encoded';
-                break;
-            }
         }
 
         return $data;
@@ -91,23 +70,5 @@ class BookPersister implements BookPersisterInterface
             $message = "Cannot locate saved data for GUID $guid.";
             throw $this->createException( $message );
         }
-    }
-    
-    private function scrubJSONData( string $data ): string
-    {
-        // This will remove unwanted characters.
-        for ($i = 0; $i <= 31; ++$i ) 
-        { 
-            $data = str_replace( chr( $i ), "", $data ); 
-        }
-        $data = str_replace( chr( 127 ), "", $data );
-
-        // Some file begins with 'efbbbf' to mark the beginning of the file. (binary level)
-        // here we detect it and we remove it, basically it's the first 3 characters 
-        if( 0 === strpos( bin2hex( $data ), 'efbbbf' ) ) 
-        {
-            $data = substr($data, 3);
-        }
-        return $data;
     }
 }

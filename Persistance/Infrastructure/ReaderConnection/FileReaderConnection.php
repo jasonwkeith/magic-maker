@@ -22,7 +22,6 @@ class FileReaderConnection implements ReaderConnectionInterface
     {
         $resource = $this->getFileResource( $this->connection_parameters[ ConnectionParametersInterface::FILE_PATH ], 'r' ) ;
         $length = $this->getFileSize( $this->connection_parameters[ ConnectionParametersInterface::FILE_PATH ] );
-        $path = $this->connection_parameters[ ConnectionParametersInterface::FILE_PATH ];
 
         return $this->readFileResource( $resource, $length );               
     }
