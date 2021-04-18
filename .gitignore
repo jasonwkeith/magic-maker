@@ -1,3 +1,11 @@
 /Storage
 /vendor
 /World
+.gitignore
+bootstrap.php
+composer
+composer-setup.php
+infection.log
+phpinfo.php
+phpunit.xml
+phpunit.xsd
