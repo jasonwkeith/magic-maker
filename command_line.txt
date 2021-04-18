@@ -1,0 +1,5 @@
+
+
+phpunit --coverage-html World/Coverage/Html --coverage-xml World/Coverage/Xml  --log-junit World/Coverage/Xml/junit.xml
+
+infection --coverage=World/Coverage/Xml
