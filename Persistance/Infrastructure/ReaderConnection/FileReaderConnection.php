@@ -14,7 +14,6 @@ class FileReaderConnection implements ReaderConnectionInterface
     {
         $this->setExceptionFactory( $exception_factory );
         $this->connection_parameters = $connection_parameters->getParameters();    
-        $this->validatePath( $this->connection_parameters[ ConnectionParametersInterface::PATH ] );
         $this->validateFilePath( $this->connection_parameters[ ConnectionParametersInterface::FILE_PATH ] );        
     }
     

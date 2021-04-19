@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 namespace JasonWKeith\Persistance\Infrastructure\WriterConnection;
 
 use PHPUnit\Framework\TestCase;
+use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionInterface;
 use JasonWKeith\Domain\Infrastructure\Exception\ExceptionFactory;
 use JasonWKeith\Persistance\Infrastructure\API\APIFactory as InfrastructureAPIFactory;
 use JasonWKeith\Persistance\Infrastructure\TestConstants;
@@ -16,7 +17,22 @@ class FileWriterConnectionTest extends TestCase
         $this->assertEquals( $this->test_data, $contents );
     }
     
+    public function testInvalidFilePathThrowsException():void
+    {
+        $invalid_path = "/jasonwkeith/Storage/Invalid/Path";
+        $connection_parameters = $this->infrastructure_api->createFileConnectionParameters( $invalid_path, $this->file_handle, $this->file_extension );
+        $this->expectException( ExceptionInterface::class );
+        $this->infrastructure_api->createWriterConnection( $connection_parameters );
+    }    
     
+    public function testInvalidResourceThrowsException():void
+    {
+        $invalid_path = "/jasonwkeith/Storage/Invalid/Path";
+        $connection_parameters = $this->infrastructure_api->createFileConnectionParameters( $this->path."/Lockers", $this->file_handle, $this->file_extension );
+        $this->expectException( ExceptionInterface::class );
+        $this->system_under_test = $this->infrastructure_api->createWriterConnection( $connection_parameters );
+    }      
+
     protected function setUp(): void
     {
         $this->file_handle = "writer_connection_test";

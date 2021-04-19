@@ -4,9 +4,13 @@ namespace JasonWKeith\Persistance\DataObject\Book;
 
 use JasonWKeith\Application\Boundary\Persistance\Book\BookRepositoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookInterface;
+use JasonWKeith\Domain\Boundary\DataObject\Book\BookCollectionInterface;
+use JasonWKeith\Persistance\Infrastructure\Repository\RepositoryTrait;
 
 class BookRepository implements BookRepositoryInterface
 {
+    use RepositoryTrait;
+    
     public function __construct( BookPersisterInterface $persister, BookMapperInterface $mapper )
     {
         $this->persister = $persister;
@@ -25,8 +29,9 @@ class BookRepository implements BookRepositoryInterface
         return $this->mapper->createEntity( $data_object );
     }   
     
-    public function remove( string $guid ): void
+    public function getCollection( array $guids ): BookCollectionInterface
     {
-        $this->persister->remove( $guid );
-    }    
+        $data_objects = $this->persister->readCollection( $guids );        
+        return $this->mapper->createEntityCollection( $data_objects );
+    }
 }

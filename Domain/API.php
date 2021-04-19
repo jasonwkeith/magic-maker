@@ -38,7 +38,7 @@ class API implements APIInterface
 
     public function createExceptionTestDataFactory(): ExceptionTestDataFactoryInterface
     {
-        return $this->test_data_api->createTestDataExceptionFactory();
+        return $this->test_data_api->createExceptionTestDataFactory();
     }
 
     public function createPersonFactory(): PersonFactoryInterface

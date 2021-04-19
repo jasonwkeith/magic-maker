@@ -1,6 +1,6 @@
 <?php
 declare( strict_types = 1 );
-namespace JasonWKeith\Persistance\DataObject\Book;
+namespace JasonWKeith\Persistance\DataObject\Person;
 
 use PHPUnit\Framework\TestCase;
 use JasonWKeith\Domain\APIFactory as DomainAPIFactory;
@@ -19,6 +19,7 @@ class PersonRepositoryTest extends TestCase
     {
         $this->domain_api_factory = new DomainAPIFactory;
         $this->domain_api = $this->domain_api_factory->create();
+        $this->entity_factory = $this->domain_api->createPersonFactory();
         
         $this->data_object_api = $this->createDataObjectAPI();
         $this->test_data_api = $this->createTestDataAPI();

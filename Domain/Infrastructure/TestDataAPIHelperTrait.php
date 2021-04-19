@@ -10,7 +10,7 @@ trait TestDataAPIHelperTrait
     use ExceptionFactoryHelperTrait;
     use DataObjectAPIHelperTrait;
     
-    public function createTestDataAPI() : TestDataAPIInterface
+    private function createTestDataAPI() : TestDataAPIInterface
     {
         $this->test_data_api_factory = new TestDataAPIFactory( $this->createExceptionFactory(), $this->createDataObjectAPI() );
         return $this->test_data_api_factory->create();

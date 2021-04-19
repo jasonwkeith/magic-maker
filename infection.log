@@ -9,3 +9,17 @@ Skipped mutants:
 
 Not Covered mutants:
 ====================
+
+1) /jasonwkeith/Persistance/Infrastructure/FileHandler/FileHandlerTrait.php:16    [M] Throw_
+
+--- Original
++++ New
+@@ @@
+     {
+         $resource = fopen($file_path, $mode);
+         if (!is_resource($resource)) {
+-            throw $this->createException("Could not create a valid resource for {$file_path} using mode {$mode}");
++            $this->createException("Could not create a valid resource for {$file_path} using mode {$mode}");
+         }
+         return $resource;
+     }

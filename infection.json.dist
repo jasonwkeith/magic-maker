@@ -1,11 +1,13 @@
 {
     "source": {
         "directories": [
-            "Domain"
+            "Domain",
+            "Persistance"
         ],
     "excludes": [
             "/\\DTO\\.php/",
             "/\\Test\\.php/",
+            "/\\TestTrait\\.php/",
             "/\\TestDataFactory\\.php/"
         ]
     },

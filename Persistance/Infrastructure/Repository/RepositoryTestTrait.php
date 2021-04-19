@@ -3,6 +3,8 @@ declare( strict_types = 1 );
 namespace JasonWKeith\Persistance\Infrastructure\Repository;
 
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionInterface;
+use JasonWKeith\Persistance\APIFactory;
+use JasonWKeith\Persistance\Infrastructure\TestConstants;
 
 trait RepositoryTestTrait
 {
@@ -53,6 +55,40 @@ trait RepositoryTestTrait
     {
         $this->validateRepositoryReturnsEachEntity( $this->getEntities() );
     }
+    
+    public function testGetCollectionReturnsCorrectEntities(): void
+    {
+        $indices = array( 1, 3, 5, 9 );
+        $all_entities = $this->getEntities();
+        $guids = array();
+        $entities = array();
+        
+        foreach( $indices as $index )
+        {
+            array_push( $entities, $all_entities[ $index ] );
+            array_push( $guids,  $all_entities[ $index ]->getGUID() );
+        }
+        
+        $collection = $this->entity_factory->createCollection( ...$entities );
+        $this->assertEquals( $collection, $this->system_under_test->getCollection( $guids ) );
+    }
+    
+    public function testGetCollectionWithInvalidGUIDThrowsException(): void
+    {
+        $indices = array( 1, 3, 5, 9 );
+        $all_entities = $this->getEntities();
+        $guids = array();
+
+        foreach( $indices as $index )
+        {
+            array_push( $guids,  $all_entities[ $index ]->getGUID() );
+        }
+        
+        array_push( $guids , "garbage guid" );
+        
+        $this->expectException( ExceptionInterface::class ) ;
+        $this->system_under_test->getCollection( $guids );
+    }    
 
     private function getEntities(): array
     {

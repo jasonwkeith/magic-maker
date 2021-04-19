@@ -4,6 +4,7 @@ namespace JasonWKeith\Persistance\DataObject\Book;
 
 use JasonWKeith\Application\Boundary\Persistance\Person\PersonRepositoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookInterface;
+use JasonWKeith\Domain\Boundary\DataObject\Book\BookCollectionInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookFactoryInterface;
 
 class BookMapper implements BookMapperInterface
@@ -34,4 +35,17 @@ class BookMapper implements BookMapperInterface
         
         return $this->book_factory->create( $data_object->getGUID(), $author_collection, $data_object->getPublishedYear(), $data_object->getTitle(), $data_object->getSubtitle() );
     }
+    
+    public function createEntityCollection( BookDataObjectCollectionInterface $data_objects ): BookCollectionInterface
+    {
+        $books = array();
+        foreach( $data_objects as $data_object )
+        {
+            $author_guids = $data_object->getAuthorGUIDs();
+            $author_collection = $this->person_repository->getCollection( $author_guids );
+            array_push( $books, $this->book_factory->create( $data_object->getGUID(), $author_collection, $data_object->getPublishedYear(), $data_object->getTitle(), $data_object->getSubtitle() ) );
+        }
+        
+        return $this->book_factory->createCollection( ...$books );
+    }     
 }

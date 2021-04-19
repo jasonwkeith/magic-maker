@@ -5,9 +5,12 @@ namespace JasonWKeith\Persistance\DataObject\Person;
 use JasonWKeith\Application\Boundary\Persistance\Person\PersonRepositoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonCollectionInterface;
+use JasonWKeith\Persistance\Infrastructure\Repository\RepositoryTrait;
 
 class PersonRepository implements PersonRepositoryInterface
 {
+    use RepositoryTrait;
+    
     public function __construct( PersonPersisterInterface $persister, PersonMapperInterface $mapper )
     {
         $this->persister = $persister;
@@ -31,9 +34,4 @@ class PersonRepository implements PersonRepositoryInterface
         $data_objects = $this->persister->readCollection( $guids );        
         return $this->mapper->createEntityCollection( $data_objects );
     }
-
-    public function remove( string $guid ): void
-    {
-        $this->persister->remove( $guid );
-    }      
 }

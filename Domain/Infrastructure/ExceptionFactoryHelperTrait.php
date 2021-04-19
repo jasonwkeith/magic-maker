@@ -7,7 +7,7 @@ use JasonWKeith\Domain\Infrastructure\Exception\ExceptionFactory;
 
 trait ExceptionFactoryHelperTrait
 {
-    public function createExceptionFactory() : ExceptionFactoryInterface
+    private function createExceptionFactory() : ExceptionFactoryInterface
     {
         return new ExceptionFactory;
     }

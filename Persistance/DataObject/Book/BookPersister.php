@@ -26,7 +26,6 @@ class BookPersister implements BookPersisterInterface
         $standard_objects = $this->loadStandardObjects();
         $standard_objects[ $data_object->getGUID() ] =  $data_object;
         $data = json_encode( $standard_objects, JSON_PRETTY_PRINT );
-        $this->loadStandardObjects( $data );
         $this->writer->write( $data );
     }
     
@@ -38,6 +37,22 @@ class BookPersister implements BookPersisterInterface
 
         return $this->data_object_factory->create( $standard_object['guid'], $standard_object['author_guids'], $standard_object['published_year'], $standard_object['subtitle'], $standard_object['title'] );
     }
+    
+    
+    public function readCollection( array $guids ): BookDataObjectCollectionInterface
+    {
+        $standard_objects = $this->loadStandardObjects();        
+
+        $data_objects = array();
+        foreach( $guids as $guid )
+        {
+            $this->throwInvalidGUIDException( isset( $standard_objects[ $guid ] ), $guid );
+            $standard_object = $standard_objects[ $guid ];            
+            array_push( $data_objects,  $this->data_object_factory->create( $standard_object['guid'], $standard_object['author_guids'], $standard_object['published_year'], $standard_object['subtitle'], $standard_object['title'] ) );
+        }
+        
+        return $this->data_object_factory->createCollection( ...$data_objects );
+    }     
     
     public function remove( string $guid ): void
     {
@@ -51,16 +66,8 @@ class BookPersister implements BookPersisterInterface
     private function loadStandardObjects(): array
     {
         $data = $this->reader->read();
-        if( strlen( $data ) === 0 )
-        {
-            $data = array();
-        }  
-        else
-        {
-            $data = json_decode( $data, true );
-        }
 
-        return $data;
+        return json_decode( $data, true );
     }
     
     private function throwInvalidGUIDException( bool $exists, string $guid ) :void

@@ -9,7 +9,7 @@ trait DataObjectAPIHelperTrait
 {
     use ExceptionFactoryHelperTrait;
     
-    public function createDataObjectAPI() : DataObjectAPIInterface
+    private function createDataObjectAPI() : DataObjectAPIInterface
     {
         $factory = new DataObjectAPIFactory( $this->createExceptionFactory() );
         return $factory->create();
