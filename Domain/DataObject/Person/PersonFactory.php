@@ -24,6 +24,11 @@ class PersonFactory implements PersonFactoryInterface
         return new PersonCollection( $this->exception_factory, ...$persons );
     }    
     
+    public function createEmptyCollection(): PersonCollectionInterface
+    {
+        return new PersonCollection( $this->exception_factory, null );
+    }      
+    
     public function createDTO(): array
     {
         $dto = array();

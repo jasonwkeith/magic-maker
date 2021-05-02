@@ -9,14 +9,16 @@ trait GUIDTraitTest
 {
     public function testGetGUIDReturnsCorrectString(): void
     {
-        $this->assertEquals( $this->test_data[ GUIDINTERFACE::GUID ], $this->system_under_test->getGUID() );
+        $test_data = $this->getTestData();
+        $this->assertEquals( $test_data[ GUIDINTERFACE::GUID ], $this->getSystemUnderTest()->getGUID() );
     }  
     
     public function testInvalidStringGUIDThrowsException(): void
     {
         $this->expectException( ExceptionInterface::class );
+        $test_data_factory = $this->getTestDataFactory();
         
-        $test_data = $this->test_data_factory->createRawDefault();  
+        $test_data = $test_data_factory->createRawDefault();  
         $test_data[ GUIDINTERFACE::GUID ]= "garbage value";        
         $this->createSystemUnderTest( $test_data );
     }    

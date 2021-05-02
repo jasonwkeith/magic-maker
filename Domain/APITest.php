@@ -5,6 +5,7 @@ namespace JasonWKeith\Domain;
 use PHPUnit\Framework\TestCase;
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookTestDataFactoryInterface;
+use JasonWKeith\Domain\Boundary\DataObject\Content\ContentTestDataFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonTestDataFactoryInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
@@ -21,6 +22,11 @@ class APITest extends TestCase
     {
         $this->assertInstanceOf( BookTestDataFactoryInterface::class, $this->api->createBookTestDataFactory() );
     } 
+    
+    public function testCreateContentTestDataFactoryReturnsContentFactoryInterface(): void
+    {
+        $this->assertInstanceOf( ContentTestDataFactoryInterface::class, $this->api->createContentTestDataFactory() );
+    }     
     
     public function testCreateExceptionFactoryReturnsBookFactoryInterface(): void
     {

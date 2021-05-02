@@ -15,9 +15,14 @@ interface RawPersonTestDataFactoryInterface
     public function createRaw8(): array;
     public function createRaw9(): array;
     public function createRawDefault(): array;
-    public function createRawJunior(): array;
-    public function createRawMD(): array;
-    public function createRawMiddlename(): array;
-    public function createRawNickname(): array;
-    public function createRawPHD(): array;
+    public function createRawWithMD(): array;
+    public function createRawWithoutMD(): array;    
+    public function createRawWithMiddlename(): array;
+    public function createRawWithoutMiddlename(): array;    
+    public function createRawWithNickname(): array;
+    public function createRawWithoutNickname(): array;    
+    public function createRawWithPHD(): array;
+    public function createRawWithoutPHD(): array;    
+    public function createRawWithSuffix(): array;    
+    public function createRawWithoutSuffix(): array;     
 }

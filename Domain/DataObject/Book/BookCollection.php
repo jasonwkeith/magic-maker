@@ -11,7 +11,7 @@ class BookCollection implements BookCollectionInterface, \IteratorAggregate
 {
     use CollectionTrait;
     
-    public function __construct( ExceptionFactoryInterface $exception_factory, BookInterface ...$books )
+    public function __construct( ExceptionFactoryInterface $exception_factory, ?BookInterface ...$books )
     {
         $this->exception_factory = $exception_factory;
         $this->setCollection( $books );

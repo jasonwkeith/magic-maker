@@ -27,7 +27,6 @@ class FileWriterConnectionTest extends TestCase
     
     public function testInvalidResourceThrowsException():void
     {
-        $invalid_path = "/jasonwkeith/Storage/Invalid/Path";
         $connection_parameters = $this->infrastructure_api->createFileConnectionParameters( $this->path."/Lockers", $this->file_handle, $this->file_extension );
         $this->expectException( ExceptionInterface::class );
         $this->system_under_test = $this->infrastructure_api->createWriterConnection( $connection_parameters );

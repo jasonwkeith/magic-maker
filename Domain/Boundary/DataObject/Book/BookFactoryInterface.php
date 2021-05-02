@@ -8,5 +8,6 @@ interface BookFactoryInterface
 {
     public function create( string $guid, PersonCollectionInterface $authors, int $year, string $title, string $subtitle ): BookInterface;
     public function createCollection( BookInterface ...$books ): BookCollectionInterface;
+    public function createEmptyCollection(): BookCollectionInterface;    
     public function createDTO(): array;    
 }

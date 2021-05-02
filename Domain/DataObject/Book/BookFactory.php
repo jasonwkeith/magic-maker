@@ -25,6 +25,11 @@ class BookFactory implements BookFactoryInterface
         return new BookCollection( $this->exception_factory, ...$books );
     }    
     
+    public function createEmptyCollection(): BookCollectionInterface
+    {
+        return new BookCollection( $this->exception_factory, null );
+    }       
+    
     public function createDTO(): array
     {
         $dto = array();

@@ -72,6 +72,26 @@ class PersonTestDataFactory implements PersonTestDataFactoryInterface, RawPerson
         return $this->create( $this->createRaw0() );
     }
 
+    public function createWithMiddleName(): PersonInterface
+    {
+        return $this->create( $this->createRawWithMiddlename() );
+    }
+    
+    public function createWithoutMiddleName(): PersonInterface
+    {
+        return $this->create( $this->createRawWithoutMiddlename() );
+    }    
+    
+    public function createWithNickname(): PersonInterface
+    {
+        return $this->create( $this->createRawWithNickname() );
+    }   
+    
+    public function createWithoutNickname(): PersonInterface
+    {
+        return $this->create( $this->createRawWithoutNickname() );
+    }     
+    
     public function createArray0(): Array
     {
         $persons[ 0 ] = $this->create( $this->createRaw0() );
@@ -239,15 +259,23 @@ class PersonTestDataFactory implements PersonTestDataFactoryInterface, RawPerson
         return $this->person_factory->createDTO();
     }      
     
-    public function createRawJunior(): array
+    public function createRawWithSuffix(): array
     {
         $dto = $this->createRaw0();
-        $dto[ PersonInterface::SUFFIX ] = true;
+        $dto[ PersonInterface::SUFFIX ] = "Junior";
         
         return $dto;
-    }      
+    }  
+
+    public function createRawWithoutSuffix(): array
+    {
+        $dto = $this->createRaw0();
+        $dto[ PersonInterface::SUFFIX ] = "";
+        
+        return $dto;
+    }     
   
-    public function createRawMD(): array
+    public function createRawWithMD(): array
     {
      
         $dto = $this->createRaw0();
@@ -255,8 +283,17 @@ class PersonTestDataFactory implements PersonTestDataFactoryInterface, RawPerson
         
         return $dto;
     }   
+    
+    public function createRawWithoutMD(): array
+    {
+     
+        $dto = $this->createRaw0();
+        $dto[ PersonInterface::HAS_MD ]= false;
+        
+        return $dto;
+    }      
 
-    public function createRawMiddlename(): array
+    public function createRawWithMiddlename(): array
     {
         
         $dto = $this->createRaw0();
@@ -264,8 +301,17 @@ class PersonTestDataFactory implements PersonTestDataFactoryInterface, RawPerson
         
         return $dto;
     }        
-
-    public function createRawNickname(): array
+    
+    public function createRawWithoutMiddlename(): array
+    {
+        
+        $dto = $this->createRaw0();
+        $dto[ PersonInterface::NICKNAME ] = "";
+        
+        return $dto;
+    }     
+                    
+    public function createRawWithNickname(): array
     {
         $dto = $this->createRaw0();
         $dto[ PersonInterface::NICKNAME ] = "The Honey Badger";
@@ -273,10 +319,26 @@ class PersonTestDataFactory implements PersonTestDataFactoryInterface, RawPerson
         return $dto;
     }      
     
-    public function createRawPHD(): array
+    public function createRawWithoutNickname(): array
+    {
+        $dto = $this->createRaw0();
+        $dto[ PersonInterface::NICKNAME ] = "";
+        
+        return $dto;
+    }     
+    
+    public function createRawWithPHD(): array
     {
         $dto = $this->createRaw0();
         $dto[ PersonInterface::HAS_PHD ]= true;
+        
+        return $dto;
+    }    
+    
+    public function createRawWithoutPHD(): array
+    {
+        $dto = $this->createRaw0();
+        $dto[ PersonInterface::HAS_PHD ]= false;
         
         return $dto;
     }     

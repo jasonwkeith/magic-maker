@@ -11,7 +11,7 @@ class PersonCollection implements PersonCollectionInterface, \IteratorAggregate
 {
     use CollectionTrait;
     
-    public function __construct( ExceptionFactoryInterface $exception_factory, PersonInterface ...$persons )
+    public function __construct( ExceptionFactoryInterface $exception_factory, ?PersonInterface ...$persons )
     {
         $this->exception_factory = $exception_factory;
         $this->setCollection( $persons );

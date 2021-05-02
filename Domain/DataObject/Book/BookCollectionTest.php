@@ -27,7 +27,7 @@ class BookCollectionTest extends TestCase
         
         $this->assertGreaterThan( 0, $i );
     }
-    
+
     public function testCollectionReturnsOriginalArray(): void
     {
         $this->system_under_test = $this->system_under_test_factory->createCollection( ...$this->test_data );        
