@@ -21,7 +21,17 @@ class PersonMapper implements PersonMapperInterface
     
     public function createEntity( PersonDataObjectInterface $data_object ): PersonInterface
     {
-        return $this->person_factory->create( $data_object->getGUID(), $data_object->getFirstName(), $data_object->getMiddleName(), $data_object->getLastName(), $data_object->getNickname(), $data_object->getSuffix(), $data_object->hasMD(), $data_object->hasPHD() );
+        $data_transfer_object = $this->person_factory->createDataTransferObject();
+        $data_transfer_object->guid = $data_object->getGUID();
+        $data_transfer_object->first_name = $data_object->getFirstName();
+        $data_transfer_object->middle_name = $data_object->getMiddleName();
+        $data_transfer_object->last_name = $data_object->getLastName();
+        $data_transfer_object->nickname = $data_object->getNickname();
+        $data_transfer_object->suffix = $data_object->getSuffix();
+        $data_transfer_object->has_md = $data_object->hasMD();        
+        $data_transfer_object->has_phd = $data_object->hasPHD();   
+        
+        return $this->person_factory->create( $data_transfer_object );
     }
     
     public function createEntityCollection( PersonDataObjectCollectionInterface $data_objects ): PersonCollectionInterface
@@ -29,7 +39,7 @@ class PersonMapper implements PersonMapperInterface
         $persons = array();
         foreach( $data_objects as $data_object )
         {
-            array_push( $persons, $this->person_factory->create( $data_object->getGUID(), $data_object->getFirstName(), $data_object->getMiddleName(), $data_object->getLastName(), $data_object->getNickname(), $data_object->getSuffix(), $data_object->hasMD(), $data_object->hasPHD() ) );
+            array_push( $persons, $this->createEntity( $data_object ) );
         }
         
         return $this->person_factory->createCollection( ...$persons );

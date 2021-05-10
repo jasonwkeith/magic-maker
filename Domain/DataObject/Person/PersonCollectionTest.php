@@ -3,10 +3,9 @@ declare( strict_types = 1 );
 namespace JasonWKeith\Domain\DataObject\Person;
 
 use PHPUnit\Framework\TestCase;
-use JasonWKeith\Domain\Infrastructure\TestDataAPIHelperTrait;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonCollectionInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionInterface;
-use JasonWKeith\Domain\Infrastructure\Exception\ExceptionFactory;
+use JasonWKeith\Domain\Infrastructure\TestDataAPIHelperTrait;
 
 
 class PersonCollectionTest extends TestCase
@@ -32,7 +31,7 @@ class PersonCollectionTest extends TestCase
     
     public function testCollectionReturnsOriginalArray(): void
     {
-        $this->test_data = $this->test_data_factory->createArray0(); 
+        $this->test_data = $this->test_data_factory->createArray( 0 ); 
         $this->system_under_test = $this->system_under_test_factory->createCollection( ...$this->test_data );        
         $this->assertEquals( $this->test_data, $this->system_under_test->toArray() );
     }
@@ -41,11 +40,11 @@ class PersonCollectionTest extends TestCase
     {
         $this->data_object_api = $this->createDataObjectAPI();
         $this->test_data_api = $this->createTestDataAPI();
-    
-        $this->system_under_test_factory = $this->data_object_api->createPersonFactory();
         $this->test_data_factory = $this->test_data_api->createPersonTestDataFactory();
-        $this->test_data = $this->test_data_factory->createDefault();  
-        $this->system_under_test = $this->system_under_test_factory->createCollection( $this->test_data );
+        $this->system_under_test_factory = $this->data_object_api->createPersonFactory();
+        $this->test_data = $this->test_data_factory->createArray( 0 );
+
+        $this->system_under_test = $this->system_under_test_factory->createCollection( ...$this->test_data );
     }
        
 }

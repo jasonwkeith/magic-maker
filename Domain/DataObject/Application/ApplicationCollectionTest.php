@@ -41,7 +41,7 @@ class ApplicationCollectionTest extends TestCase
         $this->test_data_api = $this->createTestDataAPI();
         $this->test_data_factory = $this->test_data_api->createApplicationTestDataFactory();
         $this->system_under_test_factory = $this->data_object_api->createApplicationFactory();
-        $this->test_data = $this->test_data_factory->createArray0();
+        $this->test_data = $this->test_data_factory->createArray( 0 );
 
         $this->system_under_test = $this->system_under_test_factory->createCollection( ...$this->test_data );
     }

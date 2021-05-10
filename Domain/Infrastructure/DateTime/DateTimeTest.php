@@ -4,6 +4,7 @@ namespace JasonWKeith\Domain\Infrastructure\DateTime;
 
 use PHPUnit\Framework\TestCase;
 use JasonWKeith\Domain\Boundary\Infrastructure\DateTime\DateTimeInterface;
+use JasonWKeith\Domain\Boundary\Infrastructure\DateTime\DateTimeDataTransferObject;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionInterface;
 use JasonWKeith\Domain\Infrastructure\Exception\ExceptionFactory;
 use JasonWKeith\Domain\Interactor\DataObjectAPI\DataObjectAPIFactory;
@@ -13,148 +14,143 @@ class DateTimeTest extends TestCase
 {
     public function testGetYearReturnsCorrectInteger(): void
     {
-        $this->assertSame(  $this->test_data[ DateTimeInterface::YEAR ], $this->system_under_test->getYear() );
+        $this->assertSame(  $this->test_data->year, $this->system_under_test->getYear() );
     }
 
-    public function testSetYearToNULL(): void
-    {
-        $system_under_test = $this->createSystemUnderTest( $this->test_data_factory->createRawDefault() );
-        $this->assertNull( $this->system_under_test->getMonth() );
-    }
-    
     public function testGetMonthReturnsCorrectIntegers(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );  
+        
         for( $i = 1; $i < 13; $i++ )
         {
-            $system_under_test = $this->system_under_test_factory->create( NULL, $i, NULL, NULL, NULL, NULL );
+            $date_time->month = $i;
+            $system_under_test = $this->system_under_test_factory->create( $date_time );
             $this->assertSame(  $i, $system_under_test->getMonth() );
         }
     }
 
-    public function testSetMonthToNULL(): void
-    {
-        $system_under_test = $this->createSystemUnderTest( $this->test_data_factory->createRawDefault() );
-        $this->assertNull( $this->system_under_test->getMonth() );
-    }    
-    
     public function testSetMonthGreaterThan12ThrowsException(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );   
+        $date_time->month = 13;        
         $this->expectException( ExceptionInterface::class );
-        $this->system_under_test_factory->create( NULL, 13, NULL, NULL, NULL, NULL );
+        $this->system_under_test_factory->create( $date_time );
     }
     
     public function testSetMonthLessThan1ThrowsException(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );    
+        $date_time->month = 0;        
         $this->expectException( ExceptionInterface::class );
-        $this->system_under_test_factory->create( NULL, 0, NULL, NULL, NULL, NULL );
+        $this->system_under_test_factory->create( $date_time );
     }    
     
     public function testGetDayReturnsCorrectIntegers(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );    
         for( $i = 1; $i < 32; $i++ )
         {
-            $system_under_test = $this->system_under_test_factory->create( NULL, NULL, $i, NULL, NULL, NULL );
+            $date_time->day = $i;            
+            $system_under_test = $this->system_under_test_factory->create( $date_time );
             $this->assertSame(  $i, $system_under_test->getDay() );
         }
     }
 
-    public function testSetDayToNULL(): void
-    {
-        $system_under_test = $this->createSystemUnderTest( $this->test_data_factory->createRawDefault() );
-        $this->assertNull( $this->system_under_test->getDay() );
-    }    
-    
     public function testSetDayGreaterThan31ThrowsException(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );  
+        $date_time->month = 32;
         $this->expectException( ExceptionInterface::class );
-        $this->system_under_test_factory->create( NULL, NULL, 32, NULL, NULL, NULL );
+        $this->system_under_test_factory->create( $date_time );
     }
     
     public function testSetDayLessThan1ThrowsException(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );  
+        $date_time->month = 0;        
         $this->expectException( ExceptionInterface::class );
-        $this->system_under_test_factory->create( NULL, NULL, 0, NULL, NULL, NULL );
+        $this->system_under_test_factory->create( $date_time );
     }      
     
     public function testGetHourReturnsCorrectIntegers(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );  
         for( $i = 0; $i < 24; $i++ )
         {
-            $system_under_test = $this->system_under_test_factory->create( NULL, NULL, NULL, $i, NULL, NULL );
+            $date_time->hour= $i;
+            $system_under_test = $this->system_under_test_factory->create( $date_time );
             $this->assertSame(  $i, $system_under_test->getHour() );
         }
     }
 
-    public function testSetHourToNULL(): void
-    {
-        $system_under_test = $this->createSystemUnderTest( $this->test_data_factory->createRawDefault() );
-        $this->assertNull( $this->system_under_test->getHour() );
-    }    
-    
     public function testSetHourGreaterThan23ThrowsException(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );  
+        $date_time->hour = 24;        
         $this->expectException( ExceptionInterface::class );
-        $this->system_under_test_factory->create( NULL, NULL, NULL, 24,  NULL, NULL );
+        $this->system_under_test_factory->create( $date_time );
     }
     
     public function testSetHourLessThan0ThrowsException(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );  
+        $date_time->hour = -1;          
         $this->expectException( ExceptionInterface::class );
-        $this->system_under_test_factory->create( NULL, NULL, NULL, -1,  NULL, NULL );
+        $this->system_under_test_factory->create( $date_time );
     }          
        
     public function testGetMinuteReturnsCorrectIntegers(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );  
         for( $i = 0; $i < 60; $i++ )
         {
-            $system_under_test = $this->system_under_test_factory->create( NULL, NULL, NULL, NULL, $i, NULL );
+            $date_time->minute = $i;    
+            $system_under_test = $this->system_under_test_factory->create( $date_time );
             $this->assertSame(  $i, $system_under_test->getMinute() );
         }
     }
 
-    public function testSetMinuteToNULL(): void
-    {
-        $system_under_test = $this->createSystemUnderTest( $this->test_data_factory->createRawDefault() );
-        $this->assertNull( $this->system_under_test->getMinute() );
-    }    
-    
     public function testSetMinuteGreaterThan59ThrowsException(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );  
+        $date_time->minute = 60;
         $this->expectException( ExceptionInterface::class );
-        $this->system_under_test_factory->create( NULL, NULL, NULL, NULL, 60, NULL );
+        $this->system_under_test_factory->create( $date_time );
     }
     
     public function testSetMinuteLessThan0ThrowsException(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );  
+        $date_time->minute = -1;
         $this->expectException( ExceptionInterface::class );
-        $this->system_under_test_factory->create( NULL, NULL, NULL, NULL, -1, NULL );
+        $this->system_under_test_factory->create( $date_time );
     }     
     
     public function testGetSecondReturnsCorrectIntegers(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );      
         for( $i = 0; $i < 60; $i++ )
         {
-            $system_under_test = $this->system_under_test_factory->create( NULL, NULL, NULL, NULL, NULL, $i );
+            $date_time->second = $i;            
+            $system_under_test = $this->system_under_test_factory->create( $date_time );
             $this->assertSame(  $i, $system_under_test->getSecond() );
         }
     }
 
-    public function testSetSecondToNULL(): void
-    {
-        $system_under_test = $this->createSystemUnderTest( $this->test_data_factory->createRawDefault() );
-        $this->assertNull( $this->system_under_test->getSecond() );
-    }    
-    
     public function testSetSecondeGreaterThan59ThrowsException(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );  
+        $date_time->second = 60;
         $this->expectException( ExceptionInterface::class );
-        $this->system_under_test_factory->create( NULL, NULL, NULL, NULL, NULL, 60 );
+        $this->system_under_test_factory->create( $date_time );
     }
     
     public function testSetSecondLessThan0ThrowsException(): void
     {
+        $date_time = $this->test_data_factory->createRaw( 1 );  
+        $date_time->second = -1;        
         $this->expectException( ExceptionInterface::class );
-        $this->system_under_test_factory->create( NULL, NULL, NULL, NULL, NULL, -1 );
+        $this->system_under_test_factory->create( $date_time );
     }     
        
 
@@ -167,23 +163,15 @@ class DateTimeTest extends TestCase
         $this->test_data_api = $this->test_data_api_factory->create();
         $this->test_data_factory = $this->test_data_api->createDateTimeTestDataFactory();
         
-        $this->test_data = $this->test_data_factory->createRawDefault();
+        $this->test_data = $this->test_data_factory->createRaw( 1 );
 
         $this->system_under_test_factory = $this->data_object_api->createDateTimeFactory();
         $this->system_under_test = $this->createSystemUnderTest( $this->test_data );
     }
     
-    private function createSystemUnderTest( array $test_data )
+    private function createSystemUnderTest( DateTimeDataTransferObject $date_time )
     {
-        return $this->system_under_test_factory->create
-        ( 
-            $this->test_data[ DateTimeInterface::YEAR ],
-            $this->test_data[ DateTimeInterface::MONTH ],
-            $this->test_data[ DateTimeInterface::DAY ],
-            $this->test_data[ DateTimeInterface::HOUR ],
-            $this->test_data[ DateTimeInterface::MINUTE ],
-            $this->test_data[ DateTimeInterface::SECOND ],            
-        );
+        return $this->system_under_test_factory->create( $date_time );
     }
        
 }

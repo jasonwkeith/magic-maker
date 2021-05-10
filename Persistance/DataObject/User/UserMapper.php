@@ -37,8 +37,13 @@ class UserMapper implements UserMapperInterface
         {
             $person = $this->person_repository->get( $data_object->getPersonGUID() );
         }
+
+        $data_transfer_object = $this->user_factory->createDataTransferObject();
+        $data_transfer_object->guid = $data_object->getGUID();
+        $data_transfer_object->person = $person;
+        $data_transfer_object->application = $application;
         
-        return $this->user_factory->create( $data_object->getGUID(), $person, $application );
+        return $this->user_factory->create( $data_transfer_object );
     }
     
     public function createEntityCollection( UserDataObjectCollectionInterface $data_objects ): UserCollectionInterface
@@ -46,18 +51,7 @@ class UserMapper implements UserMapperInterface
         $entities = array();
         foreach( $data_objects as $data_object )
         {
-            $person = null;
-            $application = null;            
-            if( $data_object->getApplicationGUID() )
-            {
-                $application = $this->application_repository->get( $data_object->getApplicationGUID() );
-            }        
-            
-            if( $data_object->getPersonGUID() )
-            {
-                $person = $this->person_repository->get( $data_object->getPersonGUID() );
-            }
-            array_push( $entities, $this->user_factory->create( $data_object->getGUID(), $person, $application ));
+            array_push( $entities, $this->createEntity( $data_object  ));
         }   
         return $this->user_factory->createCollection( ...$entities );
     }   

@@ -2,7 +2,7 @@
 declare( strict_types = 1 );
 namespace JasonWKeith\Domain\DataObject\Content;
 
-use JasonWKeith\Domain\Boundary\DataObject\MarkupTag\MarkupTagInterface;
+use JasonWKeith\Domain\Boundary\DataObject\Content\ContentDataTransferObject;
 use JasonWKeith\Domain\Boundary\DataObject\Content\ContentInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Content\ContentCollectionInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Content\ContentFactoryInterface;
@@ -15,15 +15,20 @@ class ContentFactory implements ContentFactoryInterface
         $this->exception_factory = $exception_factory;
     }
     
-    public function create( string $guid, string $text ): ContentInterface
+    public function create( ContentDataTransferObject $content_data_transfer_object ): ContentInterface
     {
-        return new Content( $this->exception_factory, $guid, $text );
+        return new Content( $this->exception_factory, $content_data_transfer_object->guid, $content_data_transfer_object->text );
     }
     
     public function createCollection( ContentInterface ...$Contents ): ContentCollectionInterface
     {
         return new ContentCollection( $this->exception_factory, ...$Contents );
     }  
+    
+    public function createDataTransferObject(): ContentDataTransferObject
+    {
+        return new ContentDataTransferObject;
+    }     
     
     public function createEmptyCollection(): ContentCollectionInterface
     {

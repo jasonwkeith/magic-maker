@@ -32,7 +32,7 @@ class UserCollectionTest extends TestCase
     
     public function testCollectionReturnsOriginalArray(): void
     {
-        $this->test_data = $this->test_data_factory->createArray0(); 
+        $this->test_data = $this->test_data_factory->createArray( 0 ); 
         $this->system_under_test = $this->system_under_test_factory->createCollection( ...$this->test_data );        
         $this->assertEquals( $this->test_data, $this->system_under_test->toArray() );
     }
@@ -44,7 +44,7 @@ class UserCollectionTest extends TestCase
     
         $this->system_under_test_factory = $this->data_object_api->createUserFactory();
         $this->test_data_factory = $this->test_data_api->createUserTestDataFactory();
-        $this->test_data = $this->test_data_factory->createDefault();  
+        $this->test_data = $this->test_data_factory->create( 0 );  
         $this->system_under_test = $this->system_under_test_factory->createCollection( $this->test_data );
     }
        

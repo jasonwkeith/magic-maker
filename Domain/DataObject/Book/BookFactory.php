@@ -4,8 +4,8 @@ namespace JasonWKeith\Domain\DataObject\Book;
 
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookCollectionInterface;
+use JasonWKeith\Domain\Boundary\DataObject\Book\BookDataTransferObject;
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookFactoryInterface;
-use JasonWKeith\Domain\Boundary\DataObject\Person\PersonCollectionInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
 
 class BookFactory implements BookFactoryInterface
@@ -15,15 +15,20 @@ class BookFactory implements BookFactoryInterface
         $this->exception_factory = $exception_factory;
     }
     
-    public function create( string $guid, PersonCollectionInterface $authors, int $year, string $title, string $subtitle ): BookInterface
+    public function create( BookDataTransferObject $book_data_transfer_object ): BookInterface
     {
-        return new Book( $this->exception_factory, $guid, $authors, $year, $title, $subtitle );
+        return new Book( $this->exception_factory, $book_data_transfer_object->guid, $book_data_transfer_object->authors, $book_data_transfer_object->published_year, $book_data_transfer_object->title, $book_data_transfer_object->subtitle );
     }
     
     public function createCollection( BookInterface ...$books ): BookCollectionInterface
     {
         return new BookCollection( $this->exception_factory, ...$books );
     }    
+    
+    public function createDataTransferObject(): BookDataTransferObject
+    {
+        return new BookDataTransferObject;
+    }
     
     public function createEmptyCollection(): BookCollectionInterface
     {

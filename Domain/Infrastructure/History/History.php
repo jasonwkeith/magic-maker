@@ -30,7 +30,7 @@ class History implements HistoryInterface
         return $this->created_by;
     }    
     
-    public function getUpdatedDate(): DateTimeInterface
+    public function getUpdatedDate(): ?DateTimeInterface
     {
         return $this->updated;
     }
@@ -50,7 +50,7 @@ class History implements HistoryInterface
         $this->created_by = $created_by;
     }    
     
-    public function setUpdatedDate( DateTimeInterface $updated_date ): void
+    public function setUpdatedDate( ?DateTimeInterface $updated_date ): void
     {
         $this->updated = $updated_date;
     }

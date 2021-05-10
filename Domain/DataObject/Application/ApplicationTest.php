@@ -7,6 +7,7 @@ use JasonWKeith\Domain\Infrastructure\GUID\GUIDTraitTest;
 use JasonWKeith\Domain\Infrastructure\TestDataAPIHelperTrait;
 use JasonWKeith\Domain\Infrastructure\TestHelperTrait;
 use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationInterface;
+use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationDataTransferObject;
 
 class ApplicationTest extends TestCase
 {
@@ -17,7 +18,7 @@ class ApplicationTest extends TestCase
     public function testGetNameReturnsCorrectString(): void
     {
         $test_data = $this->getTestData();
-        $this->assertSame( $test_data[ ApplicationInterface::NAME ] , $this->getSystemUnderTest()->getName() );
+        $this->assertSame( $test_data->name, $this->getSystemUnderTest()->getName() );
     }    
     
     protected function setUp(): void
@@ -29,13 +30,13 @@ class ApplicationTest extends TestCase
         $this->setTestDataAPI( $test_data_api );
         $this->setTestDataFactory( $test_data_api->createApplicationTestDataFactory() );   
         $this->setSystemUnderTestFactory( $data_object_api->createApplicationFactory() );        
-        $this->setTestData( $this->getTestDataFactory()->createRaw0() );        
+        $this->setTestData( $this->getTestDataFactory()->createRaw( 0 ) );        
         $this->setSystemUnderTest( $this->createSystemUnderTest( $this->getTestData() ) );
     }
     
-    private function createSystemUnderTest( array $test_data )
+    private function createSystemUnderTest( ApplicationDataTransferObject $test_data )
     {
-        return $this->getSystemUnderTestFactory()->create( $test_data[ ApplicationInterface::GUID ], $test_data[ ApplicationInterface::NAME ] );
+        return $this->getSystemUnderTestFactory()->create( $test_data );
     }
        
 }

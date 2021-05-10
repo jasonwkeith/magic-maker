@@ -41,6 +41,10 @@ use JasonWKeith\Persistance\DataObject\User\UserPersisterFactory;
 use JasonWKeith\Persistance\DataObject\User\UserRepositoryFactory;
 use JasonWKeith\Persistance\DataObject\User\UserRepositoryFactoryInterface;
 
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeMapperInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeMapperFactory;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectFactory;
+
 class APIFactory implements APIFactoryInterface
 {
     use ExceptionFactoryTrait;
@@ -71,14 +75,14 @@ class APIFactory implements APIFactoryInterface
     {
         $file_handle = "application";
 
-        $mapper_factory = new ApplicationMapperFactory( $this->domain_api->createApplicationFactory(), new ApplicationDataObjectFactory );
+        $mapper_factory = new ApplicationMapperFactory( $this->domain_api->createApplicationFactory(), new ApplicationDataObjectFactory, $this->createDateTimeMapper(), $this->domain_api->createHistoryFactory() );
         $mapper = $mapper_factory->create();
      
         $parameters = $this->infrastructure_api->createFileConnectionParameters( $this->getStoragePath(), $file_handle, $this->getStorageExtension() );
         $reader = $this->infrastructure_api->createReaderConnection( $parameters );
         $writer = $this->infrastructure_api->createWriterConnection( $parameters );
         
-        $persister_factory = new ApplicationPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new ApplicationDataObjectFactory );
+        $persister_factory = new ApplicationPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new DateTimeDataObjectFactory ,new ApplicationDataObjectFactory );
         $persister = $persister_factory->create();  
         
         return new ApplicationRepositoryFactory( $persister, $mapper );
@@ -117,6 +121,12 @@ class APIFactory implements APIFactoryInterface
         
         return new ContentRepositoryFactory( $persister, $mapper );
     }     
+    
+    private function createDateTimeMapper(): DateTimeMapperInterface
+    {
+        $factory = new DateTimeMapperFactory( $this->domain_api->createDateTimeFactory(), new DateTimeDataObjectFactory );
+        return $factory->create();
+    }
 
     private function createPersonRepositoryFactory(): PersonRepositoryFactoryInterface
     {

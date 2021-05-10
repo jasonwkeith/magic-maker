@@ -15,7 +15,7 @@ class DateTime implements DateTimeInterface
     private $updated;
     private $updated_by;
 
-    public function __construct( ExceptionFactoryInterface $exception_factory, ?int $year, ?int $month, ?int $day, ?int $hour, ?int $minute, ?int $second )
+    public function __construct( ExceptionFactoryInterface $exception_factory, int $year, int $month, int $day, int $hour, int $minute, int $second )
     {
         $this->setExceptionFactory( $exception_factory );
         $this->setYear( $year );      
@@ -26,42 +26,42 @@ class DateTime implements DateTimeInterface
         $this->setSecond( $second );   
     }
     
-    public function getDay(): ?int
+    public function getDay(): int
     {
         return $this->day;
     }
 
-    public function getHour(): ?int
+    public function getHour(): int
     {
         return $this->hour;
     }
     
-    public function getMinute(): ?int
+    public function getMinute(): int
     {
         return $this->minute;
     }    
     
-    public function getMonth(): ?int
+    public function getMonth(): int
     {
         return $this->month;
     }
     
-    public function getSecond(): ?int
+    public function getSecond(): int
     {
         return $this->second;
     }
 
-    public function getYear(): ?int
+    public function getYear(): int
     {
         return $this->year;
     }
 
-    private function setYear( ?int $year ): void
+    private function setYear( int $year ): void
     {
         $this->year = $year;
     }
     
-    private function setMonth( ?int $month ): void
+    private function setMonth( int $month ): void
     {
         if( ! is_null( $month ) )
         {
@@ -75,7 +75,7 @@ class DateTime implements DateTimeInterface
         $this->month = $month;
     }    
     
-    private function setDay( ?int $day ): void
+    private function setDay( int $day ): void
     {
         if( ! is_null( $day ) )
         {
@@ -89,7 +89,7 @@ class DateTime implements DateTimeInterface
         $this->day = $day;
     }   
     
-    private function setHour( ?int $hour ): void
+    private function setHour( int $hour ): void
     {
         if( ! is_null( $hour ) )
         {
@@ -103,7 +103,7 @@ class DateTime implements DateTimeInterface
         $this->hour = $hour;
     }    
     
-    private function setMinute( ?int $minute ): void
+    private function setMinute( int $minute ): void
     {
         if( ! is_null( $minute ) )
         {

@@ -4,16 +4,19 @@ namespace JasonWKeith\Domain\Boundary\DataObject\Person;
 
 interface PersonTestDataFactoryInterface
 {
-    public function create0(): PersonInterface;
-    public function create1(): PersonInterface;
-    public function create2(): PersonInterface;
-    public function create3(): PersonInterface;
-    public function create4(): PersonInterface;
-    public function create5(): PersonInterface;
-    public function create6(): PersonInterface;
-    public function create7(): PersonInterface;
-    public function create8(): PersonInterface;
-    public function create9(): PersonInterface;
+    public function __construct( PersonFactoryInterface $person_factory, PersonRawTestDataFactoryInterface $person_raw_test_data_factory );
+    public function create( int $number ): PersonInterface;
     public function createDefault(): PersonInterface;
-    public function createCollection0(): PersonCollectionInterface;
+    public function createRaw( int $number ): PersonDataTransferObject;
+    public function createRawDefault(): PersonDataTransferObject;
+    public function createPersonArray( int $number ): array;
+    public function createCollection( int $number ): PersonCollectionInterface;
+    public function createRawWithMiddlename(): PersonDataTransferObject;
+    public function createRawWithoutMiddlename(): PersonDataTransferObject;  
+    public function createRawWithNickname(): PersonDataTransferObject;
+    public function createRawWithoutNickname(): PersonDataTransferObject;     
+    public function createWithMiddlename(): PersonInterface;
+    public function createWithoutMiddlename(): PersonInterface;
+    public function createWithNickname(): PersonInterface;
+    public function createWithoutNickname(): PersonInterface; 
 }

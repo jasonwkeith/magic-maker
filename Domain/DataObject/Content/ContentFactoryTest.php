@@ -16,9 +16,9 @@ class ContentFactoryTest extends TestCase
     public function testCreateReturnsCorrectInterface():void
     {
         $test_data_factory = $this->getTestDataFactory();
-        $test_data = $test_data_factory->createRaw0();
+        $test_data = $test_data_factory->createRaw( 0 );
         
-        $this->assertInstanceOf( ContentInterface::class, $this->getSystemUnderTest()->create( $test_data[ ContentInterface::GUID ], $test_data[ ContentInterface::TEXT ] ) );
+        $this->assertInstanceOf( ContentInterface::class, $this->getSystemUnderTest()->create( $test_data ) );
     }
   
     public function testCreateCollectionReturnsCorrectInterface(): void
@@ -39,7 +39,7 @@ class ContentFactoryTest extends TestCase
         $this->setDataObjectAPI( $data_object_api );
         $this->setTestDataAPI( $test_data_api );
         $this->setTestDataFactory( $test_data_api->createContentTestDataFactory() );   
-        $this->setTestData( $this->getTestDataFactory()->createArray0() );        
+        $this->setTestData( $this->getTestDataFactory()->createArray( 0 ) );        
         $this->setSystemUnderTest( $data_object_api->createContentFactory() );
     }
 }

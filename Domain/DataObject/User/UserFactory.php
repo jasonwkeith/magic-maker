@@ -2,9 +2,8 @@
 declare( strict_types = 1 );
 namespace JasonWKeith\Domain\DataObject\User;
 
-use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationInterface;
-use JasonWKeith\Domain\Boundary\DataObject\Person\PersonInterface;
 use JasonWKeith\Domain\Boundary\DataObject\User\UserInterface;
+use JasonWKeith\Domain\Boundary\DataObject\User\UserDataTransferObject;
 use JasonWKeith\Domain\Boundary\DataObject\User\UserCollectionInterface;
 use JasonWKeith\Domain\Boundary\DataObject\User\UserFactoryInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
@@ -16,9 +15,9 @@ class UserFactory implements UserFactoryInterface
         $this->exception_factory = $exception_factory;    
     }
     
-    public function create( string $guid, ?PersonInterface $person, ?ApplicationInterface $application ): UserInterface
+    public function create( UserDataTransferObject $user_data_transfer_object ): UserInterface
     {
-        return new User( $this->exception_factory, $guid, $person, $application );
+        return new User( $this->exception_factory, $user_data_transfer_object->guid, $user_data_transfer_object->person, $user_data_transfer_object->application );
     }
     
     public function createCollection( UserInterface ...$Users ): UserCollectionInterface
@@ -26,17 +25,18 @@ class UserFactory implements UserFactoryInterface
         return new UserCollection( $this->exception_factory, ...$Users );
     }    
     
+    public function createDataTransferObject(): UserDataTransferObject
+    {
+        return new UserDataTransferObject;
+    }
+    
     public function createEmptyCollection(): UserCollectionInterface
     {
         return new UserCollection( $this->exception_factory, null );
     }      
     
-    public function createDTO(): array
+    public function createDTO(): UserDataTransferObject
     {
-        $dto = array();
-        $dto[ UserInterface::GUID ] ="";
-        $dto[ UserInterface::PERSON ] ="";
-        $dto[ UserInterface::APPLICATION ] ="";
-        return $dto;
+        return new UserDataTransferObject;
     }    
 }

@@ -6,8 +6,9 @@ use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterfa
 
 interface PersonFactoryInterface
 {
-    public function create( string $guid, string $first_name, string $middle_name, string $last_name,  string $nickname, string $suffix, bool $has_md, bool $has_phd ): PersonInterface;
+    public function create( PersonDataTransferObject $person ): PersonInterface;
     public function createCollection( PersonInterface ...$persons ): PersonCollectionInterface;
+    public function createDataTransferObject(): PersonDataTransferObject;
     public function createEmptyCollection(): PersonCollectionInterface;    
     public function createDTO(): array;
 }

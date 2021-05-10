@@ -10,7 +10,7 @@ trait GUIDTraitTest
     public function testGetGUIDReturnsCorrectString(): void
     {
         $test_data = $this->getTestData();
-        $this->assertEquals( $test_data[ GUIDINTERFACE::GUID ], $this->getSystemUnderTest()->getGUID() );
+        $this->assertEquals( $test_data->guid, $this->getSystemUnderTest()->getGUID() );
     }  
     
     public function testInvalidStringGUIDThrowsException(): void
@@ -18,8 +18,8 @@ trait GUIDTraitTest
         $this->expectException( ExceptionInterface::class );
         $test_data_factory = $this->getTestDataFactory();
         
-        $test_data = $test_data_factory->createRawDefault();  
-        $test_data[ GUIDINTERFACE::GUID ]= "garbage value";        
+        $test_data = $test_data_factory->createRaw( 0 );  
+        $test_data->guid= "garbage value";        
         $this->createSystemUnderTest( $test_data );
     }    
 }

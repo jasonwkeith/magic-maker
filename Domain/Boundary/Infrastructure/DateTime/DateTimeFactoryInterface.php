@@ -7,6 +7,6 @@ use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterfa
 interface DateTimeFactoryInterface
 {
 	public function __construct( ExceptionFactoryInterface $exception_factory );
-	public function create( ?int $year, ?int $month, ?int $day, ?int $hour, ?int $minute, ?int $second  ): DateTimeInterface;
+	public function create( DateTimeDataTransferObject $date ): DateTimeInterface;
 }
 

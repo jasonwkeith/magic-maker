@@ -92,32 +92,32 @@ trait RepositoryTestTrait
 
     private function getEntities(): array
     {
-        $entities[ 0 ] = $this->test_data_factory->create0(); 
-        $entities[ 1 ] = $this->test_data_factory->create1();         
-        $entities[ 2 ] = $this->test_data_factory->create2();        
-        $entities[ 3 ] = $this->test_data_factory->create3();
-        $entities[ 4 ] = $this->test_data_factory->create4();
-        $entities[ 5 ] = $this->test_data_factory->create5();
-        $entities[ 6 ] = $this->test_data_factory->create6();        
-        $entities[ 7 ] = $this->test_data_factory->create7();
-        $entities[ 8 ] = $this->test_data_factory->create8();
-        $entities[ 9 ] = $this->test_data_factory->create9();
+        $entities[ 0 ] = $this->test_data_factory->create( 0); 
+        $entities[ 1 ] = $this->test_data_factory->create( 1 );         
+        $entities[ 2 ] = $this->test_data_factory->create( 2 );        
+        $entities[ 3 ] = $this->test_data_factory->create( 3 );
+        $entities[ 4 ] = $this->test_data_factory->create( 4 );
+        $entities[ 5 ] = $this->test_data_factory->create( 5 );
+        $entities[ 6 ] = $this->test_data_factory->create( 6 );        
+        $entities[ 7 ] = $this->test_data_factory->create( 7 );
+        $entities[ 8 ] = $this->test_data_factory->create( 8 );
+        $entities[ 9 ] = $this->test_data_factory->create( 9 );
         
         return $entities;
     }
     
     protected function tearDown(): void
     {
-        $this->system_under_test->add( $this->test_data_factory->create8() );
-        $this->system_under_test->add( $this->test_data_factory->create0() );
-        $this->system_under_test->add( $this->test_data_factory->create9() ); 
-        $this->system_under_test->add( $this->test_data_factory->create7() );
-        $this->system_under_test->add( $this->test_data_factory->create1() );
-        $this->system_under_test->add( $this->test_data_factory->create2() );  
-        $this->system_under_test->add( $this->test_data_factory->create3() );
-        $this->system_under_test->add( $this->test_data_factory->create4() );  
-        $this->system_under_test->add( $this->test_data_factory->create5() ); 
-        $this->system_under_test->add( $this->test_data_factory->create6() );
+        $this->system_under_test->add( $this->test_data_factory->create( 8 ) );
+        $this->system_under_test->add( $this->test_data_factory->create( 0 ) );
+        $this->system_under_test->add( $this->test_data_factory->create( 9 ) ); 
+        $this->system_under_test->add( $this->test_data_factory->create( 7 ) );
+        $this->system_under_test->add( $this->test_data_factory->create( 1 ) );
+        $this->system_under_test->add( $this->test_data_factory->create( 2 ) );  
+        $this->system_under_test->add( $this->test_data_factory->create( 3 ) );
+        $this->system_under_test->add( $this->test_data_factory->create( 4 ) );  
+        $this->system_under_test->add( $this->test_data_factory->create( 5 ) ); 
+        $this->system_under_test->add( $this->test_data_factory->create( 6 ) );
     }
     
     private function validateRepositoryReturnsEachEntity( array $entities )

@@ -4,16 +4,19 @@ namespace JasonWKeith\Domain\Boundary\DataObject\User;
 
 interface UserTestDataFactoryInterface
 {
-    public function create0(): UserInterface;
-    public function create1(): UserInterface;
-    public function create2(): UserInterface;
-    public function create3(): UserInterface;
-    public function create4(): UserInterface;
-    public function create5(): UserInterface;
-    public function create6(): UserInterface;
-    public function create7(): UserInterface;
-    public function create8(): UserInterface;
-    public function create9(): UserInterface;
+    public function __construct( UserFactoryInterface $user_factory, UserRawTestDataFactoryInterface $user_raw_test_data_factory );
+    public function create( int $number ): UserInterface;
+    public function createArray( int $number ): array;    
     public function createDefault(): UserInterface;
-    public function createCollection0(): UserCollectionInterface;
+    public function createCollection( int $number ): UserCollectionInterface;
+    public function createRaw( int $number ): UserDataTransferObject;
+    public function createRawDefault(): UserDataTransferObject;       
+    public function createRawWithApplicationName(): UserDataTransferObject;
+    public function createRawWithoutApplicationName(): UserDataTransferObject;   
+    public function createRawWithMiddlename(): UserDataTransferObject;
+    public function createRawWithoutMiddlename(): UserDataTransferObject;    
+    public function createRawWithNickname(): UserDataTransferObject;
+    public function createRawWithoutNickname(): UserDataTransferObject;
+    public function createRawWithUser(): UserDataTransferObject;    
+    public function createRawWithoutUser(): UserDataTransferObject;    
 }

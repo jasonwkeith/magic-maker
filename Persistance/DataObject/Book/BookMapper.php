@@ -11,7 +11,7 @@ class BookMapper implements BookMapperInterface
 {
     public function __construct( BookFactoryInterface $book_factory, BookDataObjectFactoryInterface $book_data_object_factory, PersonRepositoryInterface $person_repository )
     {
-        $this->book_factory = $book_factory;
+        $this->book_entity_factory = $book_factory;
         $this->book_data_object_factory = $book_data_object_factory;
         $this->person_repository = $person_repository;
     }
@@ -33,7 +33,14 @@ class BookMapper implements BookMapperInterface
         $author_guids = $data_object->getAuthorGUIDs();
         $author_collection = $this->person_repository->getCollection( $author_guids );
         
-        return $this->book_factory->create( $data_object->getGUID(), $author_collection, $data_object->getPublishedYear(), $data_object->getTitle(), $data_object->getSubtitle() );
+        $data_transfer_object = $this->book_entity_factory->createDataTransferObject();
+        $data_transfer_object->guid = $data_object->getGUID();
+        $data_transfer_object->authors = $author_collection;
+        $data_transfer_object->published_year = $data_object->getPublishedYear();
+        $data_transfer_object->title = $data_object->getTitle();
+        $data_transfer_object->subtitle = $data_object->getSubtitle();
+
+        return $this->book_entity_factory->create( $data_transfer_object );
     }
     
     public function createEntityCollection( BookDataObjectCollectionInterface $data_objects ): BookCollectionInterface
@@ -41,11 +48,9 @@ class BookMapper implements BookMapperInterface
         $books = array();
         foreach( $data_objects as $data_object )
         {
-            $author_guids = $data_object->getAuthorGUIDs();
-            $author_collection = $this->person_repository->getCollection( $author_guids );
-            array_push( $books, $this->book_factory->create( $data_object->getGUID(), $author_collection, $data_object->getPublishedYear(), $data_object->getTitle(), $data_object->getSubtitle() ) );
+            array_push( $books, $this->createEntity( $data_object ) );
         }
         
-        return $this->book_factory->createCollection( ...$books );
+        return $this->book_entity_factory->createCollection( ...$books );
     }     
 }

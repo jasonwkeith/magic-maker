@@ -13,11 +13,10 @@ interface DateTimeInterface
     public const SECOND = "second";
     public const YEAR = "year";
     
-    public function __construct( ExceptionFactoryInterface $exception_factory, ?int $year, ?int $month, ?int $day, ?int $hour, ?int $minute, ?int $second );
-    public function getDay(): ?int;
-    public function getHour(): ?int;
-    public function getMinute(): ?int;
-    public function getMonth(): ?int;
-    public function getSecond(): ?int;
-    public function getYear(): ?int;
+    public function getDay(): int;
+    public function getHour(): int;
+    public function getMinute(): int;
+    public function getMonth(): int;
+    public function getSecond(): int;
+    public function getYear(): int;
 }

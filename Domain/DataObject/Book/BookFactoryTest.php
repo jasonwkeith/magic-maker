@@ -8,7 +8,7 @@ use JasonWKeith\Domain\Boundary\DataObject\Book\BookCollectionInterface;
 use JasonWKeith\Domain\Infrastructure\FactoryTestTrait;
 use JasonWKeith\Domain\Infrastructure\TestDataAPIHelperTrait;
 
-class BookTagFactoryTest extends TestCase
+class BookFactoryTest extends TestCase
 {
     use TestDataAPIHelperTrait;
     use FactoryTestTrait;
@@ -16,8 +16,8 @@ class BookTagFactoryTest extends TestCase
     public function testCreateReturnsCorrectInterface():void
     {
         $test_data_factory = $this->getTestDataFactory();
-        $test_data = $test_data_factory->createRaw0();
-        $this->assertInstanceOf( BookInterface::class, $this->getSystemUnderTest()->create( $test_data[ BookInterface::GUID ], $test_data[ BookInterface::AUTHORS ], $test_data[ BookInterface::PUBLISHED_YEAR ], $test_data[ BookInterface::TITLE ], $test_data[ BookInterface::SUBTITLE ]   ) );
+        $test_data = $test_data_factory->createRaw( 0 );
+        $this->assertInstanceOf( BookInterface::class, $this->getSystemUnderTest()->create( $test_data ) );
     }
   
     public function testCreateCollectionReturnsCorrectInterface(): void
@@ -38,7 +38,7 @@ class BookTagFactoryTest extends TestCase
         $this->setDataObjectAPI( $data_object_api );
         $this->setTestDataAPI( $test_data_api );
         $this->setTestDataFactory( $test_data_api->createBookTestDataFactory() );   
-        $this->setTestData( $this->getTestDataFactory()->createArray0() );        
+        $this->setTestData( $this->getTestDataFactory()->createArray( 0 ) );        
         $this->setSystemUnderTest( $data_object_api->createBookFactory() );
     }
 }

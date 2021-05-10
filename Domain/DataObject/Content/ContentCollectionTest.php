@@ -17,7 +17,7 @@ class ContentCollectionTest extends TestCase
         $test_data_api = $this->getTestDataAPI();
         $wrong_test_data_factory = $test_data_api->createBookTestDataFactory();
         
-        $this->verifyThatPassingWrongDataTypeToFactoryCreatesException( $wrong_test_data_factory->createArray0() );
+        $this->verifyThatPassingWrongDataTypeToFactoryCreatesException( $wrong_test_data_factory->createArray( 0 ) );
     }
     
     protected function setUp(): void
@@ -29,7 +29,7 @@ class ContentCollectionTest extends TestCase
         $this->setTestDataAPI( $test_data_api );
         $this->setTestDataFactory( $test_data_api->createContentTestDataFactory() );   
         $this->setSystemUnderTestFactory( $data_object_api->createContentFactory() );
-        $this->setTestData( $this->getTestDataFactory()->createArray0() );        
+        $this->setTestData( $this->getTestDataFactory()->createArray( 0 ) );        
         $this->setSystemUnderTest( $this->getSystemUnderTestFactory()->createCollection( ...$this->getTestData() ) );
     }
 }

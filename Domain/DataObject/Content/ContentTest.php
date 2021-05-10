@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 namespace JasonWKeith\Domain\DataObject\Content;
 
 use PHPUnit\Framework\TestCase;
+use JasonWKeith\Domain\Boundary\DataObject\Content\ContentDataTransferObject;
 use JasonWKeith\Domain\Boundary\DataObject\Content\ContentInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Content\ContentCollectionInterface;
 use JasonWKeith\Domain\Infrastructure\GUID\GUIDTraitTest;
@@ -17,7 +18,7 @@ class ContentTest extends TestCase
 
     public function testGetContentReturnsCorrectString(): void
     {
-        $this->assertEquals( $this->getTestData()[ ContentInterface::TEXT ], $this->getSystemUnderTest()->getText() );
+        $this->assertEquals( $this->getTestData()->text, $this->getSystemUnderTest()->getText() );
     }       
 
     protected function setUp(): void
@@ -29,12 +30,12 @@ class ContentTest extends TestCase
         $this->setTestDataAPI( $test_data_api );
         $this->setTestDataFactory( $test_data_api->createContentTestDataFactory() );   
         $this->setSystemUnderTestFactory( $data_object_api->createContentFactory() );
-        $this->setTestData( $this->getTestDataFactory()->createRaw0() );        
+        $this->setTestData( $this->getTestDataFactory()->createRaw( 0 ) );        
         $this->setSystemUnderTest( $this->createSystemUnderTest( $this->getTestData() ) );
     }
     
-    private function createSystemUnderTest( array $test_data )
+    private function createSystemUnderTest( ContentDataTransferObject $test_data )
     {
-        return  $this->getSystemUnderTestFactory()->create( $test_data[ ContentInterface::GUID ], $test_data[ ContentInterface::TEXT ] );
+        return  $this->getSystemUnderTestFactory()->create( $test_data );
     }    
 }

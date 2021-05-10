@@ -4,16 +4,11 @@ namespace JasonWKeith\Domain\Boundary\DataObject\Application;
 
 interface ApplicationTestDataFactoryInterface
 {
-    public function create0(): ApplicationInterface;
-    public function create1(): ApplicationInterface;
-    public function create2(): ApplicationInterface;
-    public function create3(): ApplicationInterface;
-    public function create4(): ApplicationInterface;
-    public function create5(): ApplicationInterface;
-    public function create6(): ApplicationInterface;
-    public function create7(): ApplicationInterface;
-    public function create8(): ApplicationInterface;
-    public function create9(): ApplicationInterface;
+    public function __construct( ApplicationFactoryInterface $application_factory,  ApplicationRawTestDataFactoryInterface $application_raw_test_data_factory );
+    public function create( int $number ): ApplicationInterface;
+    public function createArray( int $number ): array;
+    public function createCollection( int $number ): ApplicationCollectionInterface;
     public function createDefault(): ApplicationInterface;
-    public function createCollection0(): ApplicationCollectionInterface;
+    public function createRaw( int $number ): ApplicationDataTransferObject;
+    public function createRawDefault(): ApplicationDataTransferObject;
 }

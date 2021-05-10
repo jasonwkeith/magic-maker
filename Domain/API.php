@@ -19,6 +19,8 @@ use JasonWKeith\Domain\Boundary\Infrastructure\DateTime\DateTimeFactoryInterface
 use JasonWKeith\Domain\Boundary\Infrastructure\DateTime\DateTimeTestDataFactoryInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionTestDataFactoryInterface;
+use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryFactoryInterface;
+use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryTestDataFactoryInterface;
 
 class API implements APIInterface
 {
@@ -78,6 +80,16 @@ class API implements APIInterface
     {
         return $this->test_data_api->createExceptionTestDataFactory();
     }
+    
+    public function createHistoryFactory(): HistoryFactoryInterface
+    {
+        return $this->data_object_api->createHistoryFactory();
+    }     
+
+    public function createHistoryTestDataFactory(): HistoryTestDataFactoryInterface
+    {
+        return $this->test_data_api->createHistoryTestDataFactory();
+    }     
 
     public function createPersonFactory(): PersonFactoryInterface
     {

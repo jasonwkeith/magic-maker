@@ -8,7 +8,7 @@ use JasonWKeith\Domain\Boundary\DataObject\Person\PersonCollectionInterface;
 use JasonWKeith\Domain\Infrastructure\FactoryTestTrait;
 use JasonWKeith\Domain\Infrastructure\TestDataAPIHelperTrait;
 
-class PersonTagFactoryTest extends TestCase
+class PersonFactoryTest extends TestCase
 {
     use TestDataAPIHelperTrait;
     use FactoryTestTrait;
@@ -16,9 +16,9 @@ class PersonTagFactoryTest extends TestCase
     public function testCreateReturnsCorrectInterface():void
     {
         $test_data_factory = $this->getTestDataFactory();
-        $test_data = $test_data_factory->createRaw0();
+        $test_data = $test_data_factory->createRaw( 0 );
         
-        $this->assertInstanceOf( PersonInterface::class, $this->getSystemUnderTest()->create( $test_data[ PersonInterface::GUID ], $test_data[ PersonInterface::FIRST_NAME ], $test_data[ PersonInterface::MIDDLE_NAME ], $test_data[ PersonInterface::LAST_NAME ], $test_data[ PersonInterface::NICKNAME ], $test_data[ PersonInterface::SUFFIX ], $test_data[ PersonInterface::HAS_MD ], $test_data[ PersonInterface::HAS_PHD ] ) );
+        $this->assertInstanceOf( PersonInterface::class, $this->getSystemUnderTest()->create( $test_data ) );
     }
   
     public function testCreateCollectionReturnsCorrectInterface(): void
@@ -39,7 +39,7 @@ class PersonTagFactoryTest extends TestCase
         $this->setDataObjectAPI( $data_object_api );
         $this->setTestDataAPI( $test_data_api );
         $this->setTestDataFactory( $test_data_api->createPersonTestDataFactory() );   
-        $this->setTestData( $this->getTestDataFactory()->createArray0() );        
+        $this->setTestData( $this->getTestDataFactory()->createArray( 0 ) );        
         $this->setSystemUnderTest( $data_object_api->createPersonFactory() );
     }
 }

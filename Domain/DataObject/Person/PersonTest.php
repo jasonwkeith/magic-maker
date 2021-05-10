@@ -7,6 +7,7 @@ use JasonWKeith\Domain\Infrastructure\GUID\GUIDTraitTest;
 use JasonWKeith\Domain\Infrastructure\TestDataAPIHelperTrait;
 use JasonWKeith\Domain\Infrastructure\TestHelperTrait;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonInterface;
+use JasonWKeith\Domain\Boundary\DataObject\Person\PersonDataTransferObject;
 
 
 
@@ -18,12 +19,12 @@ class PersonTest extends TestCase
     
     public function testGetFirstNameReturnsCorrectString(): void
     {
-        $this->assertEquals( $this->getTestData()[ PersonInterface::FIRST_NAME ], $this->getSystemUnderTest()->getFirstName() );
+        $this->assertEquals( $this->getTestData()->first_name, $this->getSystemUnderTest()->getFirstName() );
     }
     
     public function testGetLastNameReturnsCorrectString(): void
     {
-        $this->assertEquals( $this->getTestData()[ PersonInterface::LAST_NAME ], $this->getSystemUnderTest()->getLastName() );
+        $this->assertEquals( $this->getTestData()->last_name, $this->getSystemUnderTest()->getLastName() );
     }   
 
     public function testGetMiddleNameDefaultsToEmptyString(): void
@@ -33,26 +34,29 @@ class PersonTest extends TestCase
     
     public function testGetMiddleNameReturnsCorrectString(): void
     {
-        $this->setTestData( $this->getTestDataFactory()->createRawWithMiddlename() );
-        $this->setSystemUnderTest( $this->createSystemUnderTest( $this->getTestData() ) );
+        $test_data = $this->getTestData();
+        $test_data->middle_name = "James William";
+        $this->setSystemUnderTest( $this->createSystemUnderTest( $test_data ) );
         
-        $this->assertEquals( $this->getTestData()[ PersonInterface::MIDDLE_NAME ], $this->getSystemUnderTest()->getMiddleName() );
+        $this->assertEquals( $test_data->middle_name, $this->getSystemUnderTest()->getMiddleName() );
     }
     
     public function testGetNickNameReturnsCorrectString(): void
     {
-        $this->setTestData( $this->getTestDataFactory()->createRawWithNickname() );
-        $this->setSystemUnderTest( $this->createSystemUnderTest( $this->getTestData() ) );
+        $test_data = $this->getTestData();
+        $test_data->nickname = "King";
+        $this->setSystemUnderTest( $this->createSystemUnderTest( $test_data ) );
 
-        $this->assertEquals( $this->getTestData()[ PersonInterface::NICKNAME ], $this->getSystemUnderTest()->getNickName() );
+        $this->assertEquals( $test_data->nickname, $this->getSystemUnderTest()->getNickName() );
     }   
 
     public function testGetSuffixReturnsCorrectString(): void
     {
-        $this->setTestData( $this->getTestDataFactory()->createRawWithSuffix() );
-        $this->setSystemUnderTest( $this->createSystemUnderTest( $this->getTestData() ) ); 
+        $test_data = $this->getTestData();
+        $test_data->suffix = "junior";
+        $this->setSystemUnderTest( $this->createSystemUnderTest( $test_data ) ); 
         
-        $this->assertEquals( $this->getTestData()[ PersonInterface::SUFFIX ], $this->getSystemUnderTest()->getSuffix() );
+        $this->assertEquals( $test_data->suffix, $this->getSystemUnderTest()->getSuffix() );
     }    
     
     public function testHasMDDefaultsToFalse(): void
@@ -62,8 +66,9 @@ class PersonTest extends TestCase
     
     public function testHasMDReturnsTrue(): void
     {
-        $this->setTestData( $this->getTestDataFactory()->createRawWithMD() );
-        $this->setSystemUnderTest( $this->createSystemUnderTest( $this->getTestData() ) ); 
+        $test_data = $this->getTestData();
+        $test_data->has_md = true;
+        $this->setSystemUnderTest( $this->createSystemUnderTest( $test_data ) ); 
         
         $this->assertTrue( $this->getSystemUnderTest()->HasMD() );
     }     
@@ -75,12 +80,17 @@ class PersonTest extends TestCase
     
     public function testHasPHDReturnsTrue(): void
     {
-        $this->setTestData( $this->getTestDataFactory()->createRawWithPHD() );
-        $this->setSystemUnderTest( $this->createSystemUnderTest( $this->getTestData() ) ); 
+        $test_data = $this->getTestData();
+        $test_data->has_phd = true;
+        $this->setSystemUnderTest( $this->createSystemUnderTest( $test_data ) ); 
         
         $this->assertTrue( $this->getSystemUnderTest()->HasPHD() );
     }      
 
+    public function testTrue():void
+    {
+        $this->assertTrue( true );
+    }
     protected function setUp(): void
     {
         $data_object_api = $this->createDataObjectAPI();
@@ -90,12 +100,12 @@ class PersonTest extends TestCase
         $this->setTestDataAPI( $test_data_api );
         $this->setTestDataFactory( $test_data_api->createPersonTestDataFactory() );   
         $this->setSystemUnderTestFactory( $data_object_api->createPersonFactory() );
-        $this->setTestData( $this->getTestDataFactory()->createRaw0() );        
+        $this->setTestData( $this->getTestDataFactory()->createRaw( 0 ) );        
         $this->setSystemUnderTest( $this->createSystemUnderTest( $this->getTestData() ) );
     }
     
-    private function createSystemUnderTest( array $test_data )
+    private function createSystemUnderTest( PersonDataTransferObject $data_transfer_object )
     {
-        return $this->getSystemUnderTestFactory()->create( $test_data[ PersonInterface::GUID ], $test_data[ PersonInterface::FIRST_NAME ], $test_data[ PersonInterface::MIDDLE_NAME ], $test_data[ PersonInterface::LAST_NAME ],  $test_data[ PersonInterface::NICKNAME ], $test_data[ PersonInterface::SUFFIX ], $test_data[ PersonInterface::HAS_MD ], $test_data[ PersonInterface::HAS_PHD ] );
+        return $this->getSystemUnderTestFactory()->create( $data_transfer_object );
     }    
 }

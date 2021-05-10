@@ -4,16 +4,13 @@ namespace JasonWKeith\Domain\Boundary\DataObject\Content;
 
 interface ContentTestDataFactoryInterface
 {
-    public function create0(): ContentInterface;
-    public function create1(): ContentInterface;
-    public function create2(): ContentInterface;
-    public function create3(): ContentInterface;
-    public function create4(): ContentInterface;
-    public function create5(): ContentInterface;
-    public function create6(): ContentInterface;
-    public function create7(): ContentInterface;
-    public function create8(): ContentInterface;
-    public function create9(): ContentInterface;
+    public function __construct( ContentFactoryInterface $entity_factory, ContentRawTestDataFactoryInterface $entity_raw_test_data_factory );
+    public function create( int $number ): ContentInterface;
+    public function createArray( int $number ): array;
     public function createDefault(): ContentInterface;
-    public function createCollection0(): ContentCollectionInterface;
+    public function createCollection( int $number ): ContentCollectionInterface;
+    public function createRaw( int $number ): ContentDataTransferObject;
+    public function createRawDefault(): ContentDataTransferObject;
+    public function createRawWithText(): ContentDataTransferObject;
+    public function createRawWithoutText(): ContentDataTransferObject;
 }
