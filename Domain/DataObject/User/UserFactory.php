@@ -17,7 +17,14 @@ class UserFactory implements UserFactoryInterface
     
     public function create( UserDataTransferObject $user_data_transfer_object ): UserInterface
     {
-        return new User( $this->exception_factory, $user_data_transfer_object->guid, $user_data_transfer_object->person, $user_data_transfer_object->application );
+        return new User
+        ( 
+            $this->exception_factory, 
+            $user_data_transfer_object->guid, 
+            $user_data_transfer_object->history,
+            $user_data_transfer_object->person, 
+            $user_data_transfer_object->application 
+        );
     }
     
     public function createCollection( UserInterface ...$Users ): UserCollectionInterface

@@ -6,7 +6,7 @@ use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryTestDataFactoryInt
 
 interface ApplicationRawTestDataFactoryInterface
 {
-    public function __construct( ApplicationFactoryInterface $application_factory, HistoryTestDataFactoryInterface $history_test_data_factory );
+    public function __construct( HistoryTestDataFactoryInterface $history_test_data_factory );
     public function create( int $number ): ApplicationDataTransferObject;
     public function createDefault(): ApplicationDataTransferObject;
 }

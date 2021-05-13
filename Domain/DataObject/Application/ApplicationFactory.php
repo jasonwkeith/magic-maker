@@ -7,7 +7,6 @@ use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationCollectionInte
 use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationDataTransferObject;
 use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationFactoryInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
-use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryInterface;
 
 class ApplicationFactory implements ApplicationFactoryInterface
 {

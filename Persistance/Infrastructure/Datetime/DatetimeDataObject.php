@@ -1,8 +1,8 @@
 <?php
 declare( strict_types = 1 );
-namespace JasonWKeith\Persistance\Infrastructure\DateTime;
+namespace JasonWKeith\Persistance\Infrastructure\Datetime;
 
-class DateTimeDataObject implements DateTimeDataObjectInterface
+class DatetimeDataObject implements DatetimeDataObjectInterface
 {
     public function __construct
     (  

@@ -4,10 +4,11 @@ namespace JasonWKeith\Domain\Boundary\DataObject\User;
 
 use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationTestDataFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonTestDataFactoryInterface;
+use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryTestDataFactoryInterface;
 
 interface UserRawTestDataFactoryInterface
 {
-    public function __construct( UserFactoryInterface $user_factory, ApplicationTestDataFactoryInterface $application_test_data_factory, PersonTestDataFactoryInterface $person_test_data_factory );
+    public function __construct( HistoryTestDataFactoryInterface $history_test_data_factory, ApplicationTestDataFactoryInterface $application_test_data_factory, PersonTestDataFactoryInterface $person_test_data_factory );
     public function create( int $number ): UserDataTransferObject;
     public function createDefault(): UserDataTransferObject;    
     public function createRawWithApplicationName(): UserDataTransferObject;

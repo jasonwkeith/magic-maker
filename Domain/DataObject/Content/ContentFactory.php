@@ -17,7 +17,13 @@ class ContentFactory implements ContentFactoryInterface
     
     public function create( ContentDataTransferObject $content_data_transfer_object ): ContentInterface
     {
-        return new Content( $this->exception_factory, $content_data_transfer_object->guid, $content_data_transfer_object->text );
+        return new Content
+        ( 
+            $this->exception_factory, 
+            $content_data_transfer_object->guid, 
+            $content_data_transfer_object->history, 
+            $content_data_transfer_object->text )
+            ;
     }
     
     public function createCollection( ContentInterface ...$Contents ): ContentCollectionInterface

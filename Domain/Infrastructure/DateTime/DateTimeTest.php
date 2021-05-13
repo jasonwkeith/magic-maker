@@ -59,7 +59,7 @@ class DateTimeTest extends TestCase
     public function testSetDayGreaterThan31ThrowsException(): void
     {
         $date_time = $this->test_data_factory->createRaw( 1 );  
-        $date_time->month = 32;
+        $date_time->day = 32;
         $this->expectException( ExceptionInterface::class );
         $this->system_under_test_factory->create( $date_time );
     }
@@ -67,7 +67,7 @@ class DateTimeTest extends TestCase
     public function testSetDayLessThan1ThrowsException(): void
     {
         $date_time = $this->test_data_factory->createRaw( 1 );  
-        $date_time->month = 0;        
+        $date_time->day = 0;        
         $this->expectException( ExceptionInterface::class );
         $this->system_under_test_factory->create( $date_time );
     }      

@@ -8,6 +8,7 @@ use JasonWKeith\Domain\Boundary\DataObject\Person\PersonCollectionInterface;
 class BookDataTransferObject
 {
     public $guid;
+    public $history;
     public $authors;
     public $published_year;
     public $subtitle;
@@ -17,6 +18,7 @@ class BookDataTransferObject
     {
         $duplicate = new BookDataTransferObject;
         $duplicate->guid = $this->guid;
+        $duplicate->history = $this->history;
         $duplicate->authors = $this->authors;
         $duplicate->published_year = $this->published_year;
         $duplicate->subtitle = $this->subtitle;

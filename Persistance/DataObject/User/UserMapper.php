@@ -7,20 +7,30 @@ use JasonWKeith\Application\Boundary\Persistance\Person\PersonRepositoryInterfac
 use JasonWKeith\Domain\Boundary\DataObject\User\UserInterface;
 use JasonWKeith\Domain\Boundary\DataObject\User\UserCollectionInterface;
 use JasonWKeith\Domain\Boundary\DataObject\User\UserFactoryInterface;
+use JasonWKeith\Persistance\Infrastructure\History\HistoryMapperInterface;
 
 class UserMapper implements UserMapperInterface
 {
-    public function __construct( UserFactoryInterface $user_factory, UserDataObjectFactoryInterface $user_data_object_factory, PersonRepositoryInterface $person_repository, ApplicationRepositoryInterface $application_repository )
+    public function __construct
+    ( 
+        UserFactoryInterface $user_factory, 
+        UserDataObjectFactoryInterface $user_data_object_factory, 
+        PersonRepositoryInterface $person_repository, 
+        ApplicationRepositoryInterface $application_repository, 
+        HistoryMapperInterface $history_mapper 
+    )
     {
         $this->user_factory = $user_factory;
         $this->user_data_object_factory = $user_data_object_factory;
         $this->person_repository = $person_repository;
         $this->application_repository = $application_repository;
+        $this->history_mapper = $history_mapper;        
     }
 
     public function createDataObject( UserInterface $user ): UserDataObject
     {
-        return $this->user_data_object_factory->create( $user->getGUID(), $user->getPersonGUID(), $user->getApplicationGUID() );
+        $history = $this->history_mapper->createDataObject( $user->getCreatedBy(), $user->getCreatedDate(), $user->getUpdatedBy(), $user->getUpdatedDate() );        
+        return $this->user_data_object_factory->create( $user->getGUID(),$history, $user->getPersonGUID(), $user->getApplicationGUID() );
     }
     
     public function createEntity( UserDataObjectInterface $data_object ): UserInterface
@@ -40,6 +50,7 @@ class UserMapper implements UserMapperInterface
 
         $data_transfer_object = $this->user_factory->createDataTransferObject();
         $data_transfer_object->guid = $data_object->getGUID();
+        $data_transfer_object->history = $this->history_mapper->createEntity( $data_object->getHistory() );        
         $data_transfer_object->person = $person;
         $data_transfer_object->application = $application;
         

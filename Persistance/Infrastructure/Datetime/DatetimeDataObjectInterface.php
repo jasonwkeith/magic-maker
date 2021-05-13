@@ -1,10 +1,10 @@
 <?php
 declare( strict_types = 1 );
-namespace JasonWKeith\Persistance\Infrastructure\DateTime;
+namespace JasonWKeith\Persistance\Infrastructure\Datetime;
 
-use JasonWKeith\Domain\Boundary\Infrastructure\DateTime\DateTimeInterface;
+use JasonWKeith\Domain\Boundary\Infrastructure\Datetime\DatetimeInterface;
 
-interface DateTimeDataObjectInterface extends DateTimeInterface
+interface DatetimeDataObjectInterface extends DatetimeInterface
 {
     public function __construct
     (  

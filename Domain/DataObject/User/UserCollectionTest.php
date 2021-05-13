@@ -21,8 +21,8 @@ class UserCollectionTest extends TestCase
     public function testIteratorIsImplemented(): void
     {
         $i = 0;
-        $Users = $this->system_under_test;
-        foreach( $Users as $User )
+        $users = $this->system_under_test;
+        foreach( $users as $user )
         {
             $i++;
         }

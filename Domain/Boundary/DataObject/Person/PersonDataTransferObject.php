@@ -5,6 +5,7 @@ namespace JasonWKeith\Domain\Boundary\DataObject\Person;
 class PersonDataTransferObject
 {
     public $guid ="";
+    public $history = null;    
     public $has_md = false;
     public $has_phd = false;   
     public $first_name ="";
@@ -17,6 +18,7 @@ class PersonDataTransferObject
     {
         $duplicate = new PersonDataTransferObject;
         $duplicate->guid = $original->guid;
+        $duplicate->history = $original->history;
         $duplicate->has_md = $original->has_md;
         $duplicate->has_phd = $original->has_phd;
         $duplicate->first_name = $original->first_name;

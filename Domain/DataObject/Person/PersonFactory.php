@@ -17,7 +17,7 @@ class PersonFactory implements PersonFactoryInterface
     
     public function create( PersonDataTransferObject $person ): PersonInterface
     {
-        return new Person( $this->exception_factory, $person->guid, $person->first_name, $person->middle_name, $person->last_name, $person->nickname, $person->suffix,$person->has_md, $person->has_phd );
+        return new Person( $this->exception_factory, $person->guid, $person->history, $person->first_name, $person->middle_name, $person->last_name, $person->nickname, $person->suffix,$person->has_md, $person->has_phd );
     }
     
     public function createCollection( PersonInterface ...$persons ): PersonCollectionInterface

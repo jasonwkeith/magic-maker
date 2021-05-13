@@ -57,6 +57,7 @@ class PersonTestDataFactory implements PersonTestDataFactoryInterface
     public function createPersonArray( int $number ): array
     {
         $raw_counter = $number;
+        $persons = array();
         
         for( $i = 0; $i < 4; $i++ )
         {
@@ -64,7 +65,7 @@ class PersonTestDataFactory implements PersonTestDataFactoryInterface
             {
                 $raw_counter = 0;
             }
-            $person[ $i ] = $this->create( $raw_counter );
+            $persons[ $i ] = $this->create( $raw_counter );
         }
         
         return $persons;

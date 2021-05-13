@@ -39,6 +39,7 @@ class DateTimeTestDataFactory implements DateTimeTestDataFactoryInterface
     public function createArray( int $number ): array
     {
         $raw_counter = $number;
+        $entities = array();
         
         for( $i = 0; $i < 4; $i++ )
         {
@@ -46,10 +47,10 @@ class DateTimeTestDataFactory implements DateTimeTestDataFactoryInterface
             {
                 $raw_counter = 0;
             }
-            $person[ $i ] = $this->create( $raw_counter );
+            $entities[ $i ] = $this->create( $raw_counter );
         }
         
-        return $persons;
+        return $entities;
     }      
 
     private function createDateTime( DateTimeDataTransferObject $date_time ): DateTimeInterface

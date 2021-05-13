@@ -4,12 +4,24 @@ namespace JasonWKeith\Persistance\DataObject\Book;
 
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonCollectionInterface;
+use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectInterface;
+use JasonWKeith\Persistance\Infrastructure\History\HistoryTrait;
 
 class BookDataObject implements BookDataObjectInterface
 {
-    public function __construct(  string $guid, array $author_guids, int $published_year, string $subtitle, string $title )
+    use HistoryTrait;    
+    public function __construct
+    (  
+        string $guid, 
+        HistoryDataObjectInterface $history,           
+        array $author_guids, 
+        int $published_year, 
+        string $subtitle, 
+        string $title 
+        )
     {
         $this->guid = $guid;
+        $this->setHistory( $history );        
         $this->author_guids = $author_guids;
         $this->published_year = $published_year;
         $this->subtitle = $subtitle;

@@ -5,15 +5,15 @@ namespace JasonWKeith\Domain\DataObject\User;
 use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationTestDataFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonTestDataFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\User\UserDataTransferObject;
-use JasonWKeith\Domain\Boundary\DataObject\User\UserFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\User\UserTestDataFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\User\UserRawTestDataFactoryInterface;
+use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryTestDataFactoryInterface;
 
 class UserRawTestDataFactory implements UserRawTestDataFactoryInterface
 {
-    public function __construct( UserFactoryInterface $user_factory, ApplicationTestDataFactoryInterface $application_test_data_factory, PersonTestDataFactoryInterface $person_test_data_factory )
+    public function __construct( HistoryTestDataFactoryInterface $history_test_data_factory, ApplicationTestDataFactoryInterface $application_test_data_factory, PersonTestDataFactoryInterface $person_test_data_factory )
     {
-        $this->user_factory = $user_factory;
+        $this->history_test_data_factory = $history_test_data_factory;
         $this->application_test_data_factory = $application_test_data_factory;
         $this->person_test_data_factory = $person_test_data_factory;
         
@@ -32,9 +32,10 @@ class UserRawTestDataFactory implements UserRawTestDataFactoryInterface
 
    public function create( int $number ): UserDataTransferObject
    {
-       $dto = $this->user_factory->createDTO();
+       $dto = new UserDataTransferObject;
        $dto->guid = $this->application_guids[ $number ];
        $dto->application = $this->application_test_data_factory->create( $number );
+       $dto->history = $this->history_test_data_factory->create( $number );
        $dto->person = $this->person_test_data_factory->create( $number );
        
        return $dto;

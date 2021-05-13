@@ -4,17 +4,18 @@ namespace JasonWKeith\Domain\DataObject\Person;
 
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonInterface;
-use JasonWKeith\Domain\Infrastructure\GUID\GUIDTrait;
-
+use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryInterface;
+use JasonWKeith\Domain\Infrastructure\DataObject\DataObjectTrait;
 
 class Person implements PersonInterface
 {
-    use GUIDTrait;
+    use DataObjectTrait;
 
-    public function __construct( ExceptionFactoryInterface $exception_factory, string $guid, string $first_name, string $middle_name, string $last_name,  string $nickname, string $suffix, bool $has_md, bool $has_phd )
+    public function __construct( ExceptionFactoryInterface $exception_factory, string $guid, HistoryInterface $history, string $first_name, string $middle_name, string $last_name,  string $nickname, string $suffix, bool $has_md, bool $has_phd )
     {
         $this->setExceptionFactory( $exception_factory );
         $this->setGUID( $guid );
+        $this->setHistory( $history );        
         $this->setFirstName( $first_name );
         $this->setLastName( $last_name );
         $this->setMiddleName( $middle_name );

@@ -2,11 +2,28 @@
 declare( strict_types = 1 );
 namespace JasonWKeith\Persistance\DataObject\Person;
 
+use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectInterface;
+use JasonWKeith\Persistance\Infrastructure\History\HistoryTrait;
+
 class PersonDataObject implements PersonDataObjectInterface
 {
-    public function __construct( string $guid, string $first_name, string $middle_name, string $last_name,  string $nickname, string $suffix, bool $has_md, bool $has_phd ) 
+    use HistoryTrait;
+    
+    public function __construct
+    ( 
+        string $guid, 
+        HistoryDataObjectInterface $history,      
+        string $first_name, 
+        string $middle_name, 
+        string $last_name,  
+        string $nickname, 
+        string $suffix, 
+        bool $has_md, 
+        bool $has_phd 
+    ) 
     {
         $this->guid = $guid;
+        $this->setHistory( $history );
         $this->first_name = $first_name;
         $this->middle_name = $middle_name;
         $this->last_name = $last_name;

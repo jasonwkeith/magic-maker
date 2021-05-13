@@ -17,7 +17,16 @@ class BookFactory implements BookFactoryInterface
     
     public function create( BookDataTransferObject $book_data_transfer_object ): BookInterface
     {
-        return new Book( $this->exception_factory, $book_data_transfer_object->guid, $book_data_transfer_object->authors, $book_data_transfer_object->published_year, $book_data_transfer_object->title, $book_data_transfer_object->subtitle );
+        return new Book
+        ( 
+            $this->exception_factory, 
+            $book_data_transfer_object->guid, 
+            $book_data_transfer_object->history, 
+            $book_data_transfer_object->authors, 
+            $book_data_transfer_object->published_year, 
+            $book_data_transfer_object->title, 
+            $book_data_transfer_object->subtitle 
+        );
     }
     
     public function createCollection( BookInterface ...$books ): BookCollectionInterface

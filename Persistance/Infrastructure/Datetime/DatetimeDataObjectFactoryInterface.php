@@ -1,8 +1,8 @@
 <?php
 declare( strict_types = 1 );
-namespace JasonWKeith\Persistance\Infrastructure\DateTime;
+namespace JasonWKeith\Persistance\Infrastructure\Datetime;
 
-interface DateTimeDataObjectFactoryInterface
+interface DatetimeDataObjectFactoryInterface
 {
     public function create
     (
@@ -12,5 +12,5 @@ interface DateTimeDataObjectFactoryInterface
         int $hour,
         int $minute,
         int $second
-    ): DateTimeDataObjectInterface;
+    ): DatetimeDataObjectInterface;
 }

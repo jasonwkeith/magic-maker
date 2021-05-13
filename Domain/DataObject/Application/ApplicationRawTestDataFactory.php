@@ -4,7 +4,6 @@ namespace JasonWKeith\Domain\DataObject\Application;
 
 use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationDataTransferObject;
-use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationCollectionInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationRawTestDataFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonTestDataFactoryInterface;
@@ -12,9 +11,8 @@ use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryTestDataFactoryInt
 
 class ApplicationRawTestDataFactory implements ApplicationRawTestDataFactoryInterface
 {
-    public function __construct( ApplicationFactoryInterface $application_factory, HistoryTestDataFactoryInterface $history_test_data_factory )
+    public function __construct( HistoryTestDataFactoryInterface $history_test_data_factory )
     {
-        $this->application_factory = $application_factory;
         $this->history_test_data_factory = $history_test_data_factory;
         
         $this->data_transfer_objects = array();

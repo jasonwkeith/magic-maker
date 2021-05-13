@@ -4,6 +4,10 @@ namespace JasonWKeith\Persistance\DataObject\User;
 
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
 use JasonWKeith\Persistance\Infrastructure\Exception\ExceptionFactoryTrait;
+use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectFactoryInterface;
+use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectInterface;
+use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectFactoryInterface;
+use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectInterface;
 use JasonWKeith\Persistance\Infrastructure\ReaderConnection\ReaderConnectionInterface;
 use JasonWKeith\Persistance\Infrastructure\WriterConnection\WriterConnectionInterface;
 use JasonWKeith\Persistance\Infrastructure\Persister\PersisterTrait;
@@ -13,11 +17,21 @@ class UserPersister implements UserPersisterInterface
     use ExceptionFactoryTrait;
     use PersisterTrait;
     
-    public function __construct( ExceptionFactoryInterface $exception_Factory, WriterConnectionInterface $writer, ReaderConnectionInterface $reader, UserDataObjectFactoryInterface $data_object_factory )
+    public function __construct
+    ( 
+        ExceptionFactoryInterface $exception_Factory, 
+        WriterConnectionInterface $writer, 
+        ReaderConnectionInterface $reader, 
+        DatetimeDataObjectFactoryInterface $Datetime_data_object_factory, 
+        HistoryDataObjectFactoryInterface $history_data_object_factory,         
+        UserDataObjectFactoryInterface $data_object_factory 
+    )
     {
         $this->setExceptionFactory( $exception_Factory );
         $this->writer = $writer;
         $this->reader = $reader;
+        $this->setDatetimeDataObjectFactory( $Datetime_data_object_factory );
+        $this->setHistoryDataObjectFactory( $history_data_object_factory );        
         $this->data_object_factory = $data_object_factory;
     }
     
@@ -29,8 +43,15 @@ class UserPersister implements UserPersisterInterface
     public function read( string $guid ): UserDataObjectInterface
     {
         $standard_object =  $this->readStandardObject( $guid );
-
-        return $this->data_object_factory->create( $standard_object['guid'], $standard_object['person_guid'], $standard_object[ 'application_guid' ] );
+        $history_data_object = $this->createHistoryDataObject( $standard_object[ 'history' ] );
+        
+        return $this->data_object_factory->create
+        ( 
+            $standard_object['guid'], 
+            $history_data_object,
+            $standard_object['person_guid'], 
+            $standard_object[ 'application_guid' ] 
+        );
     }
 
     public function readCollection( array $guids ): UserDataObjectCollectionInterface
@@ -41,8 +62,17 @@ class UserPersister implements UserPersisterInterface
         foreach( $guids as $guid )
         {
             $this->throwInvalidGUIDException( isset( $standard_objects[ $guid ] ), $guid );
-            $standard_object = $standard_objects[ $guid ];            
-            array_push( $data_objects,  $this->data_object_factory->create( $standard_object['guid'], $standard_object['person_guid'], $standard_object[ 'application_guid' ] ) );
+            $standard_object = $standard_objects[ $guid ];   
+            $history_data_object = $this->createHistoryDataObject( $standard_object[ 'history' ] );            
+            array_push( $data_objects,  
+            $this->data_object_factory->create
+                ( 
+                    $standard_object['guid'], 
+                    $history_data_object,                    
+                    $standard_object['person_guid'], 
+                    $standard_object[ 'application_guid' ] 
+                ) 
+            );
         }
         
         return $this->data_object_factory->createCollection( ...$data_objects );

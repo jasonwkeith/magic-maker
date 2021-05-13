@@ -6,17 +6,26 @@ use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonInterface;
 use JasonWKeith\Domain\Boundary\DataObject\User\UserInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
-use JasonWKeith\Domain\Infrastructure\GUID\GUIDTrait;
+use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryInterface;
+use JasonWKeith\Domain\Infrastructure\DataObject\DataObjectTrait;
 
 
 class User implements UserInterface
 {
-    use GUIDTrait;
+    use DataObjectTrait;
 
-    public function __construct( ExceptionFactoryInterface $exception_factory, string $guid, ?PersonInterface $person, ?ApplicationInterface $application )
+    public function __construct
+    ( 
+        ExceptionFactoryInterface $exception_factory, 
+        string $guid, 
+        HistoryInterface $history, 
+        ?PersonInterface $person, 
+        ?ApplicationInterface $application 
+    )
     {
         $this->setExceptionFactory( $exception_factory );
         $this->setGUID( $guid );
+        $this->setHistory( $history );          
         $this->person = $person;
         $this->application = $application;
     }

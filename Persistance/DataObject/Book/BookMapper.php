@@ -6,14 +6,16 @@ use JasonWKeith\Application\Boundary\Persistance\Person\PersonRepositoryInterfac
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookCollectionInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookFactoryInterface;
+use JasonWKeith\Persistance\Infrastructure\History\HistoryMapperInterface;
 
 class BookMapper implements BookMapperInterface
 {
-    public function __construct( BookFactoryInterface $book_factory, BookDataObjectFactoryInterface $book_data_object_factory, PersonRepositoryInterface $person_repository )
+    public function __construct( BookFactoryInterface $book_factory, BookDataObjectFactoryInterface $book_data_object_factory, PersonRepositoryInterface $person_repository, HistoryMapperInterface $history_mapper )
     {
         $this->book_entity_factory = $book_factory;
         $this->book_data_object_factory = $book_data_object_factory;
         $this->person_repository = $person_repository;
+        $this->history_mapper = $history_mapper;        
     }
 
     public function createDataObject( BookInterface $book ): BookDataObject
@@ -24,8 +26,9 @@ class BookMapper implements BookMapperInterface
         {
             array_push( $author_guids, $author->getGUID() );        
         }
-
-        return $this->book_data_object_factory->create( $book->getGUID(), $author_guids, $book->getPublishedYear(), $book->getSubtitle(), $book->getTitle() );
+        
+        $history_data_object = $this->history_mapper->createDataObject( $book->getCreatedBy(), $book->getCreatedDate(), $book->getUpdatedBy(), $book->getUpdatedDate() );
+        return $this->book_data_object_factory->create( $book->getGUID(), $history_data_object , $author_guids, $book->getPublishedYear(), $book->getSubtitle(), $book->getTitle() );
     }
     
     public function createEntity( BookDataObjectInterface $data_object ): BookInterface
@@ -35,6 +38,7 @@ class BookMapper implements BookMapperInterface
         
         $data_transfer_object = $this->book_entity_factory->createDataTransferObject();
         $data_transfer_object->guid = $data_object->getGUID();
+        $data_transfer_object->history = $this->history_mapper->createEntity( $data_object->getHistory() );        
         $data_transfer_object->authors = $author_collection;
         $data_transfer_object->published_year = $data_object->getPublishedYear();
         $data_transfer_object->title = $data_object->getTitle();

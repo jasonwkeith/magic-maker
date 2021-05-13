@@ -5,16 +5,18 @@ namespace JasonWKeith\Domain\DataObject\Book;
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonCollectionInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
-use JasonWKeith\Domain\Infrastructure\GUID\GUIDTrait;
+use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryInterface;
+use JasonWKeith\Domain\Infrastructure\DataObject\DataObjectTrait;
 
 class Book implements BookInterface
 {
-    use GUIDTrait;
+    use DataObjectTrait;
 
-    public function __construct( ExceptionFactoryInterface $exception_factory, string $guid, PersonCollectionInterface $authors, int $year, string $title, string $subtitle )
+    public function __construct( ExceptionFactoryInterface $exception_factory, string $guid, HistoryInterface $history, PersonCollectionInterface $authors, int $year, string $title, string $subtitle )
     {
         $this->setExceptionFactory( $exception_factory );        
         $this->setGUID( $guid );
+        $this->setHistory( $history );          
         $this->setAuthors( $authors );
         $this->setPublishedYear( $year );
         $this->setTitle( $title );

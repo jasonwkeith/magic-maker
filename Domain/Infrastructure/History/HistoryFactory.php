@@ -12,5 +12,10 @@ class HistoryFactory implements HistoryFactoryInterface
 	{
         return new History( $history_data_transfer_object->created_date, $history_data_transfer_object->created_by, $history_data_transfer_object->updated_date, $history_data_transfer_object->updated_by );
 	}
+	
+    public function createDataTransferObject(): HistoryDataTransferObject
+    {
+    	return new HistoryDataTransferObject;
+    }
 }
 
