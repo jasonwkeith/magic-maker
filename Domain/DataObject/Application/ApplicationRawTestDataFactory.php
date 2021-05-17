@@ -47,6 +47,7 @@ class ApplicationRawTestDataFactory implements ApplicationRawTestDataFactoryInte
     
     public function createDefault(): ApplicationDataTransferObject
     {
+        $dto =  new ApplicationDataTransferObject;        
         $dto->history = $this->data_transfer_objects[ 0 ]->history = $this->history_test_data_factory->create( 0 );
         
         return $dto;
