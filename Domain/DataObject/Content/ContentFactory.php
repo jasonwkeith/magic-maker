@@ -40,13 +40,4 @@ class ContentFactory implements ContentFactoryInterface
     {
         return new ContentCollection( $this->exception_factory, null );
     }
-    
-    public function createDTO(): array
-    {
-        $dto = array();
-        $dto[ ContentInterface::GUID ] ="";
-        $dto[ ContentInterface::TEXT ] = "";
-
-        return $dto;
-    }    
 }

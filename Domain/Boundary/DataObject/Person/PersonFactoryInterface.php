@@ -10,5 +10,4 @@ interface PersonFactoryInterface
     public function createCollection( PersonInterface ...$persons ): PersonCollectionInterface;
     public function createDataTransferObject(): PersonDataTransferObject;
     public function createEmptyCollection(): PersonCollectionInterface;    
-    public function createDTO(): array;
 }

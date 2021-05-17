@@ -8,5 +8,4 @@ interface ContentFactoryInterface
     public function createCollection( ContentInterface ...$contents ): ContentCollectionInterface;
     public function createDataTransferObject(): ContentDataTransferObject;    
     public function createEmptyCollection(): ContentCollectionInterface;    
-    public function createDTO(): array;    
 }

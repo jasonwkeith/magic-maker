@@ -13,17 +13,4 @@ class BookDataTransferObject
     public $published_year;
     public $subtitle;
     public $title;
-
-    public function duplicate(): BookDataTransferObject
-    {
-        $duplicate = new BookDataTransferObject;
-        $duplicate->guid = $this->guid;
-        $duplicate->history = $this->history;
-        $duplicate->authors = $this->authors;
-        $duplicate->published_year = $this->published_year;
-        $duplicate->subtitle = $this->subtitle;
-        $duplicate->title = $this->title;
-        
-        return $duplicate;
-    }
 }

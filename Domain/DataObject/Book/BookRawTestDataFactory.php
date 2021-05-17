@@ -3,10 +3,7 @@ declare( strict_types = 1 );
 namespace JasonWKeith\Domain\DataObject\Book;
 
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookDataTransferObject;
-use JasonWKeith\Domain\Boundary\DataObject\Book\BookFactoryInterface;
-use JasonWKeith\Domain\Boundary\DataObject\Book\BookCollectionInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Book\BookRawTestDataFactoryInterface;
-use JasonWKeith\Domain\Boundary\DataObject\Book\BookTestDataFactoryInterface;
 use JasonWKeith\Domain\Boundary\DataObject\Person\PersonTestDataFactoryInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryTestDataFactoryInterface;
 
@@ -17,93 +14,65 @@ class BookRawTestDataFactory implements BookRawTestDataFactoryInterface
         $this->history_test_data_factory = $history_test_data_factory;            
         $this->person_test_data_factory = $person_test_data_factory;
         
-        $this->dto[ 0 ] = new BookDataTransferObject;
-        $this->dto[ 0 ]->guid ="39c734cd-6082-4c1d-8d8e-766e7c18d757";
-        $this->dto[ 0 ]->history = $this->history_test_data_factory->create( 0 );           
-        $this->dto[ 0 ]->authors= $this->person_test_data_factory->createCollection( 0 );
-        $this->dto[ 0 ]->published_year= 1978;
-        $this->dto[ 0 ]->subtitle= "How everything you know about Rhinos is wrong";
-        $this->dto[ 0 ]->title= "Rhinoceros Success";
+        $this->guids[ 0 ] = "39c734cd-6082-4c1d-8d8e-766e7c18d757";
+        $this->guids[ 1 ] = "5e85781a-ef8f-4cf1-b9e3-16ccee5c59b9";  
+        $this->guids[ 2 ] = "832abfd0-c13e-44b9-a5da-7ff4f0233142"; 
+        $this->guids[ 3 ] = "90320091-e4ab-4eb9-9be0-7bd8a3f2965c";   
+        $this->guids[ 4 ] = "10a1a17f-4f15-4c8b-a516-938c4746f685";   
+        $this->guids[ 5 ] = "74e8bbf9-249a-452b-a518-a465f1d64ba5";  
+        $this->guids[ 6 ] = "45af3b87-6a67-43e9-8b42-ad901c9d2180";  
+        $this->guids[ 7 ] = "445e6049-829d-4f7b-a3aa-92c1274f7e31";   
+        $this->guids[ 8 ] = "ded02299-91e1-41af-affb-529bd0a72dca";    
+        $this->guids[ 9 ] = "c5db4631-33a8-4b7e-9049-509cf771c6d2";  
 
-        $this->dto[ 1 ] = new BookDataTransferObject;
-        $this->dto[ 1 ]->guid ="5e85781a-ef8f-4cf1-b9e3-16ccee5c59b9";    
-        $this->dto[ 1 ]->history = $this->history_test_data_factory->create( 1 );            
-        $this->dto[ 1 ]->authors= $this->person_test_data_factory->createCollection( 1 );
-        $this->dto[ 1 ]->published_year= 1978;
-        $this->dto[ 1 ]->subtitle= "How to stopping digging holes with new ideas";
-        $this->dto[ 1 ]->title= "Innovation Stack";
- 
-        $this->dto[ 2 ] = new BookDataTransferObject;
-        $this->dto[ 2 ]->guid ="832abfd0-c13e-44b9-a5da-7ff4f0233142";    
-        $this->dto[ 2 ]->history = $this->history_test_data_factory->create( 2 );            
-        $this->dto[ 2 ]->authors= $this->person_test_data_factory->createCollection( 2 );
-        $this->dto[ 2 ]->published_year= 1988;
-        $this->dto[ 2 ]->subtitle= "Its the Zombiepocolypse";
-        $this->dto[ 2 ]->title= "Dead Companies Walking";
-
-        $this->dto[ 3 ] = new BookDataTransferObject;
-        $this->dto[ 3 ]->guid ="90320091-e4ab-4eb9-9be0-7bd8a3f2965c";   
-        $this->dto[ 3 ]->history = $this->history_test_data_factory->create( 3 );            
-        $this->dto[ 3 ]->authors= $this->person_test_data_factory->createCollection( 3 );
-        $this->dto[ 3 ]->published_year= 1992;
-        $this->dto[ 3 ]->subtitle= "Because your kids are socialists";
-        $this->dto[ 3 ]->title= "Post Capitalist Society";
-
-        $this->dto[ 4 ] = new BookDataTransferObject;
-        $this->dto[ 4 ]->guid ="10a1a17f-4f15-4c8b-a516-938c4746f685";   
-        $this->dto[ 4 ]->history = $this->history_test_data_factory->create( 4 );            
-        $this->dto[ 4 ]->authors= $this->person_test_data_factory->createCollection( 4 );
-        $this->dto[ 4 ]->published_year= 1998;
-        $this->dto[ 4 ]->subtitle= "Where your leadership should be taking you";
-        $this->dto[ 4 ]->title= "True North";
-
-        $this->dto[ 5 ] = new BookDataTransferObject;
-        $this->dto[ 5 ]->guid ="74e8bbf9-249a-452b-a518-a465f1d64ba5";    
-        $this->dto[ 5 ]->history = $this->history_test_data_factory->create( 5 );            
-        $this->dto[ 5 ]->authors= $this->person_test_data_factory->createCollection( 5 );
-        $this->dto[ 5 ]->published_year= 2010;
-        $this->dto[ 5 ]->subtitle= "Because your employees suck";
-        $this->dto[ 5 ]->title= "Extreme Ownership";
+        $this->published_years[ 0 ] = 1873;
+        $this->published_years[ 1 ] = 1978;
+        $this->published_years[ 2 ] = 1988;
+        $this->published_years[ 3 ] = 1992;
+        $this->published_years[ 4 ] = 1998;
+        $this->published_years[ 5 ] = 2010;
+        $this->published_years[ 6 ] = 2015;
+        $this->published_years[ 7 ] = 2018;
+        $this->published_years[ 8 ] = 2020;
+        $this->published_years[ 9 ] = 2029;
 
         
-        $this->dto[ 6 ] = new BookDataTransferObject;
-        $this->dto[ 6 ]->guid ="45af3b87-6a67-43e9-8b42-ad901c9d2180";      
-        $this->dto[ 6 ]->history = $this->history_test_data_factory->create( 6 );            
-        $this->dto[ 6 ]->authors= $this->person_test_data_factory->createCollection( 6 );
-        $this->dto[ 6 ]->published_year= 2015;
-        $this->dto[ 6 ]->subtitle= "Five hats are so prepandemic";
-        $this->dto[ 6 ]->title= "Six Thinking Hats";
-
+        $this->subtitles[ 0 ] = "How everything you know about Rhinos is wrong";
+        $this->subtitles[ 1 ] = "How to stopping digging holes with new ideas";
+        $this->subtitles[ 2 ] = "Its the Zombiepocolypse";
+        $this->subtitles[ 3 ] = "Because your kids are socialists";
+        $this->subtitles[ 4 ] = "Where your leadership should be taking you";
+        $this->subtitles[ 5 ] = "Because your employees suck";     
+        $this->subtitles[ 6 ] = "Five hats are so prepandemic";
+        $this->subtitles[ 7 ] = "They are hard!";
+        $this->subtitles[ 8 ] = "Economimists deny science";
+        $this->subtitles[ 9 ] = "Not to be confused with getting to yes";  
         
-        $this->dto[ 7 ] = new BookDataTransferObject;
-        $this->dto[ 7 ]->guid ="445e6049-829d-4f7b-a3aa-92c1274f7e31";       
-        $this->dto[ 7 ]->history = $this->history_test_data_factory->create( 7 );            
-        $this->dto[ 7 ]->authors= $this->person_test_data_factory->createCollection( 7 );
-        $this->dto[ 7 ]->published_year= 2018;
-        $this->dto[ 7 ]->subtitle= "They are hard!";
-        $this->dto[ 7 ]->title= "The Hard Thing About Hard Things";
-
-        $this->dto[ 8 ] = new BookDataTransferObject;
-        $this->dto[ 8 ]->guid ="ded02299-91e1-41af-affb-529bd0a72dca";     
-        $this->dto[ 8 ]->history = $this->history_test_data_factory->create( 8 );            
-        $this->dto[ 8 ]->authors= $this->person_test_data_factory->createCollection( 8 );
-        $this->dto[ 8 ]->published_year= 2020;
-        $this->dto[ 8 ]->subtitle= "Economimists deny science";
-        $this->dto[ 8 ]->title= "The World is Flat";
-
-        $this->dto[ 9 ] = new BookDataTransferObject;
-        $this->dto[ 9 ]->guid ="c5db4631-33a8-4b7e-9049-509cf771c6d2";  
-        $this->dto[ 9 ]->history = $this->history_test_data_factory->create( 9 );    
-        $this->dto[ 9 ]->authors= $this->person_test_data_factory->createCollection( 9 );
-        $this->dto[ 9 ]->published_year= 2029;
-        $this->dto[ 9 ]->subtitle= "Not to be confused with getting to yes";
-        $this->dto[ 9 ]->title = "Getting Past No";
+        $this->titles[ 0 ] = "Rhinoceros Success";        
+        $this->titles[ 1 ] = "Innovation Stack";
+        $this->titles[ 2 ] = "Dead Companies Walking";
+        $this->titles[ 3 ] = "Post Capitalist Society";
+        $this->titles[ 4 ] = "True North";
+        $this->titles[ 5 ] = "Extreme Ownership";        
+        $this->titles[ 6 ] = "Six Thinking Hats";
+        $this->titles[ 7 ] = "The Hard Thing About Hard Things";
+        $this->titles[ 8 ] = "The World is Flat";
+        $this->titles[ 9 ] = "Getting Past No";
    
     }
 
    public function create( int $number ): BookDataTransferObject
    {
-        return $this->dto[ $number]->duplicate();
+       
+        $dto = new BookDataTransferObject;
+        $dto->guid = $this->guids[ $number ];
+        $dto->history = $this->history_test_data_factory->create( $number );
+        $dto->authors = $this->person_test_data_factory->createCollection( $number );
+        $dto->published_year = $this->published_years[ $number ];
+        $dto->subtitle = $this->subtitles[ $number ];
+        $dto->title = $this->titles[ $number ];
+       
+        return $dto;
    }
    
     public function createArray( int $number ): array

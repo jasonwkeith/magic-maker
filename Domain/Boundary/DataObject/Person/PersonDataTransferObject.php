@@ -13,21 +13,5 @@ class PersonDataTransferObject
     public $middle_name ="";
     public $nickname = "";
     public $suffix = "";
-    
-    static public function duplicate( PersonDataTransferObject $original ): PersonDataTransferObject
-    {
-        $duplicate = new PersonDataTransferObject;
-        $duplicate->guid = $original->guid;
-        $duplicate->history = $original->history;
-        $duplicate->has_md = $original->has_md;
-        $duplicate->has_phd = $original->has_phd;
-        $duplicate->first_name = $original->first_name;
-        $duplicate->last_name = $original->last_name; 
-        $duplicate->middle_name = $original->middle_name; 
-        $duplicate->nickname = $original->nickname; 
-        $duplicate->suffix = $original->suffix;
-        
-        return $duplicate;
-    }
 }
 

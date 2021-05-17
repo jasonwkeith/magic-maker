@@ -8,5 +8,4 @@ interface UserFactoryInterface
     public function createCollection( UserInterface ...$Userss ): UserCollectionInterface;
     public function createDataTransferObject(): UserDataTransferObject;
     public function createEmptyCollection(): UserCollectionInterface;    
-    public function createDTO(): UserDataTransferObject;    
 }

@@ -11,80 +11,88 @@ class PersonRawTestDataFactory implements PersonRawTestDataFactoryInterface
     public function __construct( HistoryTestDataFactoryInterface $history_test_data_factory )
     {
         $this->history_test_data_factory = $history_test_data_factory;        
-        $this->data_transfer_objects = array();
-    
-        $this->data_transfer_objects[ 0 ] = new PersonDataTransferObject;
-        $this->data_transfer_objects[ 0 ]->guid ="d62ea34e-97a6-4dea-a5b4-0ce6095cef29";        
-        $this->data_transfer_objects[ 0 ]->history = $this->history_test_data_factory->create( 0 );        
-        $this->data_transfer_objects[ 0 ]->first_name = "John";
-        $this->data_transfer_objects[ 0 ]->last_name = "Doe";
-    
-        $this->data_transfer_objects[ 1 ] = new PersonDataTransferObject;
-        $this->data_transfer_objects[ 1 ]->guid ="7685ba6a-fc76-482e-b964-258a454b003b"; 
-        $this->data_transfer_objects[ 1 ]->history = $this->history_test_data_factory->create( 1 );        
-        $this->data_transfer_objects[ 1 ]->first_name = "Ledger";
-        $this->data_transfer_objects[ 1 ]->middle_name = "James William";
-        $this->data_transfer_objects[ 1 ]->last_name = "Keith";
-        $this->data_transfer_objects[ 1 ]->suffix = "Junior";
-     
-        $this->data_transfer_objects[ 2 ] = new PersonDataTransferObject;
-        $this->data_transfer_objects[ 2 ]->guid ="26bca210-edc9-4395-a4e5-de97c1e19ce0";        
-        $this->data_transfer_objects[ 2 ]->history = $this->history_test_data_factory->create( 2 );        
-        $this->data_transfer_objects[ 2 ]->first_name = "Thomas";
-        $this->data_transfer_objects[ 2 ]->middle_name = "Edward Patrick";
-        $this->data_transfer_objects[ 2 ]->last_name = "Brady";
-        $this->data_transfer_objects[ 2 ]->nickname = "The GOAT";     
+
+        $this->guids[ 0 ] = "d62ea34e-97a6-4dea-a5b4-0ce6095cef29";
+        $this->guids[ 1 ] = "7685ba6a-fc76-482e-b964-258a454b003b";  
+        $this->guids[ 2 ] = "26bca210-edc9-4395-a4e5-de97c1e19ce0"; 
+        $this->guids[ 3 ] = "fab2d907-ae7b-4195-82b0-a794236c87cd";   
+        $this->guids[ 4 ] = "6ab7cd5c-9a69-4c6a-b031-5fb40ab98538";   
+        $this->guids[ 5 ] = "8b82171c-8380-4855-8842-c8876bdd2569";  
+        $this->guids[ 6 ] = "02dca342-9d4d-4082-bdf2-7cc9aec78b30";  
+        $this->guids[ 7 ] = "20197d41-42d3-449a-894b-48e68ba82786";   
+        $this->guids[ 8 ] = "ddb29c63-040d-4ec4-95bd-ee1ccb703913";    
+        $this->guids[ 9 ] = "d9dc7c92-7266-43ac-97e5-9495d6cef8b1";  
+
+        $this->first_names[ 0 ] = "John";
+        $this->first_names[ 1 ] = "Ledger";  
+        $this->first_names[ 2 ] = "Thomas"; 
+        $this->first_names[ 3 ] = "Isiah";   
+        $this->first_names[ 4 ] = "Serena";   
+        $this->first_names[ 5 ] = "Dave";  
+        $this->first_names[ 6 ] = "David";  
+        $this->first_names[ 7 ] = "Scott";   
+        $this->first_names[ 8 ] = "Spencer";    
+        $this->first_names[ 9 ] = "Kenneth";  
+
+        $this->last_names[ 0 ] = "Doe";
+        $this->last_names[ 1 ] = "Keith";  
+        $this->last_names[ 2 ] = "Brady"; 
+        $this->last_names[ 3 ] = "Thomas";   
+        $this->last_names[ 4 ] = "Williams";   
+        $this->last_names[ 5 ] = "Ramsey";  
+        $this->last_names[ 6 ] = "Allen";  
+        $this->last_names[ 7 ] = "Alexander";   
+        $this->last_names[ 8 ] = "Johnson";    
+        $this->last_names[ 9 ] = "Blanchard";         
         
-        $this->data_transfer_objects[ 3 ] = new PersonDataTransferObject;
-        $this->data_transfer_objects[ 3 ]->guid ="fab2d907-ae7b-4195-82b0-a794236c87cd";   
-        $this->data_transfer_objects[ 3 ]->history = $this->history_test_data_factory->create( 3 );        
-        $this->data_transfer_objects[ 3 ]->first_name = "Isiah";
-        $this->data_transfer_objects[ 3 ]->middle_name = "Lord";
-        $this->data_transfer_objects[ 3 ]->last_name = "Thomas";
-        $this->data_transfer_objects[ 3 ]->nickname = "Zeke";            
-        
-        $this->data_transfer_objects[ 4 ] = new PersonDataTransferObject;
-        $this->data_transfer_objects[ 4 ]->guid ="6ab7cd5c-9a69-4c6a-b031-5fb40ab98538";    
-        $this->data_transfer_objects[ 4 ]->history = $this->history_test_data_factory->create( 4 );        
-        $this->data_transfer_objects[ 4 ]->first_name = "Serena";
-        $this->data_transfer_objects[ 4 ]->last_name = "Williams";
-     
-        $this->data_transfer_objects[ 5 ] = new PersonDataTransferObject;
-        $this->data_transfer_objects[ 5 ]->guid ="8b82171c-8380-4855-8842-c8876bdd2569";  
-        $this->data_transfer_objects[ 5 ]->history = $this->history_test_data_factory->create( 5 );        
-        $this->data_transfer_objects[ 5 ]->first_name = "Dave";
-        $this->data_transfer_objects[ 5 ]->last_name = "Ramsey";
-    
-        $this->data_transfer_objects[ 6 ] = new PersonDataTransferObject;
-        $this->data_transfer_objects[ 6 ]->guid ="02dca342-9d4d-4082-bdf2-7cc9aec78b30";    
-        $this->data_transfer_objects[ 6 ]->history = $this->history_test_data_factory->create( 6 );        
-        $this->data_transfer_objects[ 6 ]->first_name = "David";
-        $this->data_transfer_objects[ 6 ]->last_name = "Allen";
-    
-        $this->data_transfer_objects[ 7 ] = new PersonDataTransferObject;
-        $this->data_transfer_objects[ 7 ]->guid ="20197d41-42d3-449a-894b-48e68ba82786";     
-        $this->data_transfer_objects[ 7 ]->history = $this->history_test_data_factory->create( 7 );        
-        $this->data_transfer_objects[ 7 ]->first_name = "Scott";
-        $this->data_transfer_objects[ 7 ]->last_name = "Alexander";
-        
-        $this->data_transfer_objects[ 8 ] = new PersonDataTransferObject;
-        $this->data_transfer_objects[ 8 ]->guid ="ddb29c63-040d-4ec4-95bd-ee1ccb703913";        
-        $this->data_transfer_objects[ 8 ]->history = $this->history_test_data_factory->create( 8 );        
-        $this->data_transfer_objects[ 8 ]->first_name = "Spencer";
-        $this->data_transfer_objects[ 8 ]->last_name = "Johnson";     
-        $this->data_transfer_objects[ 8 ]->has_md = true;          
-        
-        $this->data_transfer_objects[ 9 ] = new PersonDataTransferObject;
-        $this->data_transfer_objects[ 9 ]->guid ="d9dc7c92-7266-43ac-97e5-9495d6cef8b1";      
-        $this->data_transfer_objects[ 9 ]->history = $this->history_test_data_factory->create( 9 );        
-        $this->data_transfer_objects[ 9 ]->first_name = "Kenneth";
-        $this->data_transfer_objects[ 9 ]->last_name = "Blanchard";    
-        $this->data_transfer_objects[ 9 ]->has_phd = true;            
+        $this->middle_names[ 1 ] = "James William";  
+        $this->middle_names[ 2 ] = "Edward Patrick"; 
+        $this->middle_names[ 3 ] = "Lord";   
+   
+        $this->nicknames[ 2 ] = "The GOAT"; 
+        $this->nicknames[ 3 ] = "Zeke";   
+
+        $this->suffixes[ 1 ] = "Junior";
+
+        $this->has_mds[ 8 ] = true;          
+        $this->has_phds[ 9 ] = true;   
     }
     
     public function create( int $number ): PersonDataTransferObject
     {
-        return PersonDataTransferObject::duplicate( $this->data_transfer_objects[ $number ] );
+        $dto = new PersonDataTransferObject();
+        
+        $dto->guid =  $this->guids[ $number ];
+        $dto->history = $this->history_test_data_factory->create( $number );
+        $dto->first_name = $this->first_names[ $number ];
+        $dto->last_name = $this->last_names[ $number ]; 
+
+        if( isset( $this->middle_names[ $number ] ) )
+        {
+            $dto->middle_name = $this->middle_names[ $number ];
+        }
+        
+        if( isset( $this->nicknames[ $number ] ) )
+        {
+            $dto->nickname = $this->nicknames[ $number ];
+        }       
+        
+        if( isset( $this->suffixes[ $number ] ) )
+        {
+            $dto->suffix = $this->suffixes[ $number ];
+        }         
+        
+        if( isset( $this->has_mds[ $number ] ) )
+        {
+            $dto->has_md = $this->has_mds[ $number ];
+        }
+
+        if( isset( $this->has_phds[ $number ] ) )
+        {
+            $dto->has_phds = $this->has_phds[ $number ];
+        }
+
+        return $dto;
     }
     
     public function createDefault(): PersonDataTransferObject

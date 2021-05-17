@@ -8,5 +8,4 @@ interface BookFactoryInterface
     public function createCollection( BookInterface ...$books ): BookCollectionInterface;
     public function createDataTransferObject(): BookDataTransferObject;
     public function createEmptyCollection(): BookCollectionInterface;    
-    public function createDTO(): array;    
 }

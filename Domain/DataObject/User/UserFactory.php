@@ -41,9 +41,4 @@ class UserFactory implements UserFactoryInterface
     {
         return new UserCollection( $this->exception_factory, null );
     }      
-    
-    public function createDTO(): UserDataTransferObject
-    {
-        return new UserDataTransferObject;
-    }    
 }

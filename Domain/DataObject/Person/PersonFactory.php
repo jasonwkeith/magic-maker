@@ -34,19 +34,4 @@ class PersonFactory implements PersonFactoryInterface
     {
         return new PersonCollection( $this->exception_factory, null );
     }      
-    
-    public function createDTO(): array
-    {
-        $dto = array();
-        $dto[ PersonInterface::GUID ] ="";
-        $dto[ PersonInterface::FIRST_NAME ] ="";
-        $dto[ PersonInterface::LAST_NAME ] ="";
-        $dto[ PersonInterface::MIDDLE_NAME ] = "";
-        $dto[ PersonInterface::NICKNAME ] ="";
-        $dto[ PersonInterface::SUFFIX ] = "";
-        $dto[ PersonInterface::HAS_MD ] = false;
-        $dto[ PersonInterface::HAS_PHD ] = false;
-
-        return $dto;
-    }    
 }

@@ -43,16 +43,4 @@ class BookFactory implements BookFactoryInterface
     {
         return new BookCollection( $this->exception_factory, null );
     }       
-    
-    public function createDTO(): array
-    {
-        $dto = array();
-        $dto[ BookInterface::GUID ] ="";
-        $dto[ BookInterface::AUTHORS ] = "";
-        $dto[ BookInterface::PUBLISHED_YEAR ] =0;
-        $dto[ BookInterface::SUBTITLE ] = "";
-        $dto[ BookInterface::TITLE ] ="";
-
-        return $dto;
-    }    
 }

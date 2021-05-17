@@ -19,7 +19,7 @@ class History implements HistoryInterface
         $this->setUpdatedBy( $updated_by );        
         $this->setUpdatedDate( $updated_date );        
     }
-
+    
     public function getCreatedDate(): DateTimeInterface
     {
         return $this->created;

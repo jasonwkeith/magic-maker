@@ -10,18 +10,5 @@ class DateTimeDataTransferObject
     public $month = null;
     public $second = null;
     public $year = null;
-    
-    public function duplicate( DateTimeDataTransferObject $original ): DateTimeDataTransferObject
-    {
-        $duplicate = new DateTimeDataTransferObject;
-        $duplicate->day = $original->created_date->day;
-        $duplicate->hour = $original->created_date->hour;
-        $duplicate->minute = $original->created_date->minute;
-        $duplicate->month = $original->created_date->month;
-        $duplicate->second = $original->created_date->second;
-        $duplicate->year = $original->created_date->year;
-        
-        return $duplicate;
-    }      
 }
 

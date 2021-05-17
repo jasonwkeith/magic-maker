@@ -29,13 +29,4 @@ class ApplicationFactory implements ApplicationFactoryInterface
     {
         return new ApplicationCollection( $this->exception_factory, null );
     }       
-    
-    public function createDTO(): array
-    {
-        $dto = array();
-        $dto[ ApplicationInterface::GUID ] ="";
-        $dto[ ApplicationInterface::NAME ] = "";
-
-        return $dto;
-    }    
 }
