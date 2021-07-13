@@ -1,20 +1,20 @@
 <?php
 declare( strict_types = 1 );
-namespace JasonWKeith\Persistance\Infrastructure\Datetime;
+namespace JasonWKeith\Persistance\Infrastructure\DateTime;
 
-use JasonWKeith\Domain\Boundary\Infrastructure\Datetime\DatetimeDataTransferObject;
-use JasonWKeith\Domain\Boundary\Infrastructure\Datetime\DatetimeInterface;
-use JasonWKeith\Domain\Boundary\Infrastructure\Datetime\DatetimeFactoryInterface;
+use JasonWKeith\Domain\Boundary\Infrastructure\DateTime\DatetimeDataTransferObject;
+use JasonWKeith\Domain\Boundary\Infrastructure\DateTime\DateTimeInterface;
+use JasonWKeith\Domain\Boundary\Infrastructure\DateTime\DateTimeFactoryInterface;
 
-class DatetimeMapper implements DatetimeMapperInterface
+class DateTimeMapper implements DateTimeMapperInterface
 {
-    public function __construct( DatetimeFactoryInterface $date_time_factory, DatetimeDataObjectFactoryInterface $date_time_data_object_factory )
+    public function __construct( DateTimeFactoryInterface $date_time_factory, DateTimeDataObjectFactoryInterface $date_time_data_object_factory )
     {
         $this->date_time_factory = $date_time_factory;
         $this->date_time_data_object_factory = $date_time_data_object_factory;
     }
 
-    public function createDataObject( DatetimeInterface $date_time ): DatetimeDataObject
+    public function createDataObject( DateTimeInterface $date_time ): DateTimeDataObject
     {
         return $this->date_time_data_object_factory->create
         (
@@ -27,7 +27,7 @@ class DatetimeMapper implements DatetimeMapperInterface
         );
     }
     
-    public function createEntity( ?int $year, ?int $month, ?int $day, ?int $hour, ?int $minute, ?int $second ): DatetimeInterface
+    public function createEntity( ?int $year, ?int $month, ?int $day, ?int $hour, ?int $minute, ?int $second ): DateTimeInterface
     {
         $dto = new DatetimeDataTransferObject;
         $dto->year = $year;

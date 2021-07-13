@@ -12,4 +12,6 @@ interface HistoryRawTestDataFactoryInterface
     );
     public function create( int $number ): HistoryDataTransferObject;
     public function createDefault(): HistoryDataTransferObject;
+    public function createModified(): HistoryDataTransferObject;
+    public function createUnmodified(): HistoryDataTransferObject;  
 }

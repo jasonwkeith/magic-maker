@@ -11,8 +11,9 @@ class ApplicationRepository implements ApplicationRepositoryInterface
 {
     use RepositoryTrait;
     
-    public function __construct( ApplicationPersisterInterface $persister, ApplicationMapperInterface $mapper )
+    public function __construct( ApplicationArchiverInterface $archiver, ApplicationPersisterInterface $persister, ApplicationMapperInterface $mapper )
     {
+        $this->archiver = $archiver;
         $this->persister = $persister;
         $this->mapper = $mapper;
     } 
@@ -21,6 +22,7 @@ class ApplicationRepository implements ApplicationRepositoryInterface
     {
         $data_object = $this->mapper->createDataObject( $application );
         $this->persister->write( $data_object );
+        $this->archiver->write( $data_object );
     }
 
     public function get( string $guid ): ApplicationInterface
@@ -33,5 +35,10 @@ class ApplicationRepository implements ApplicationRepositoryInterface
     {
         $data_objects = $this->persister->readCollection( $guids );        
         return $this->mapper->createEntityCollection( $data_objects );
+    }
+    
+    public function getHistory( string $guid ): ApplicationDataObjectCollectionInterface    
+    {
+        return $this->archiver->read( $guid );
     }
 }

@@ -49,6 +49,11 @@ class HistoryTestDataFactory implements HistoryTestDataFactoryInterface
         return $this->history_factory->createCollection( ...$this->createArray( $number ) );
     }
     
+    public function createModified(): HistoryInterface
+    {
+        return $this->history_factory->create( $this->history_raw_test_data_factory->createModified() );
+    }
+
     public function createRaw( int $number ): HistoryDataTransferObject
     {
         return $this->history_raw_test_data_factory->create( $number );
@@ -58,4 +63,10 @@ class HistoryTestDataFactory implements HistoryTestDataFactoryInterface
     {
         return $this->history_raw_test_data_factory->createDefault();
     }
+
+    public function createUnmodified(): HistoryInterface
+    {
+        return $this->history_factory->create( $this->history_raw_test_data_factory->createUnmodified() );
+    }    
+    
 }

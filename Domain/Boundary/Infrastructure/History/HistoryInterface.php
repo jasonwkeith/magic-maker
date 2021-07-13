@@ -11,9 +11,9 @@ interface HistoryInterface
     public const UPDATED_DATE = "updated_date";
     public const UPDATED_BY = "updated_by";
     
-    public function __construct( DateTimeInterface $created, string $created_by, ?DateTimeInterface $updated, string $updated_by );
+    public function __construct( DateTimeInterface $created, string $created_by, ?DateTimeInterface $updated, ?string $updated_by );
     public function getCreatedDate(): DateTimeInterface;
     public function getCreatedBy(): string;
     public function getUpdatedDate(): ?DateTimeInterface;
-    public function getUpdatedBy(): string;
+    public function getUpdatedBy(): ?string;
 }

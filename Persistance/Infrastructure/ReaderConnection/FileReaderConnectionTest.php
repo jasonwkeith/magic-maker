@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 namespace JasonWKeith\Persistance\Infrastructure\ReaderConnection;
 
 use PHPUnit\Framework\TestCase;
+use JasonWKeith\Domain\APIFactory as DomainAPIFactory;
 use JasonWKeith\Domain\Infrastructure\Exception\ExceptionFactory;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionInterface;
 use JasonWKeith\Persistance\Infrastructure\API\APIFactory as InfrastructureAPIFactory;
@@ -46,9 +47,12 @@ class FileReaderConnectionTest extends TestCase
         $this->file_handle = "reader_connection_test";
         $this->file_extension = "dev_data";
         
+        $this->domain_api_factory = new DomainAPIFactory;
+        $this->domain_api = $this->domain_api_factory->create();          
+        
         $this->exception_factory = new ExceptionFactory;
         $this->infrastructure_api_factory = new InfrastructureAPIFactory;
-        $this->infrastructure_api = $this->infrastructure_api_factory->create( TestConstants::STORAGE_PATH, $this->exception_factory );    
+        $this->infrastructure_api = $this->infrastructure_api_factory->create( TestConstants::STORAGE_PATH, $this->domain_api, $this->exception_factory );
 
         $this->path = $this->infrastructure_api->getStoragePath();
         $this->file_path = $this->path . $this->file_handle . "." . $this->file_extension;

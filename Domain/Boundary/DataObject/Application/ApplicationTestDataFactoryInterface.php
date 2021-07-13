@@ -9,6 +9,8 @@ interface ApplicationTestDataFactoryInterface
     public function createArray( int $number ): array;
     public function createCollection( int $number ): ApplicationCollectionInterface;
     public function createDefault(): ApplicationInterface;
+    public function createModified(): ApplicationInterface;
     public function createRaw( int $number ): ApplicationDataTransferObject;
     public function createRawDefault(): ApplicationDataTransferObject;
+    public function createUnmodified(): ApplicationInterface;    
 }

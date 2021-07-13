@@ -4,7 +4,8 @@ namespace JasonWKeith\Persistance\Infrastructure;
 
 class TestConstants
 {
-    public const STORAGE_PATH_EMPTY ="/jasonwkeith/Storage/Development/Empty/";    
+    public const ARCHIVE_EXTENSION ="archive";    
+    public const ARCHIVE_PATH ="/jasonwkeith/Storage/Development/Archive/";
     public const STORAGE_PATH ="/jasonwkeith/Storage/Development/";
     public const STORAGE_EXTENSION ="data";
 }

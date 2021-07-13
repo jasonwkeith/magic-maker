@@ -54,23 +54,6 @@ class PersonTestDataFactory implements PersonTestDataFactoryInterface
         return $this->person_raw_test_data_factory->createDefault();
     } 
 
-    public function createPersonArray( int $number ): array
-    {
-        $raw_counter = $number;
-        $persons = array();
-        
-        for( $i = 0; $i < 4; $i++ )
-        {
-            if( $raw_counter > 9 )
-            {
-                $raw_counter = 0;
-            }
-            $persons[ $i ] = $this->create( $raw_counter );
-        }
-        
-        return $persons;
-    }      
-
     public function createCollection( int $number ): PersonCollectionInterface
     {
         return $this->person_factory->createCollection( ...$this->createArray( $number ) );

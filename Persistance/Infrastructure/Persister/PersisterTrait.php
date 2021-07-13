@@ -2,8 +2,8 @@
 declare( strict_types = 1 );
 namespace JasonWKeith\Persistance\Infrastructure\Persister;
 
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectFactoryInterface;
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectFactoryInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectInterface;
 use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectFactoryInterface;
 use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectInterface;
 
@@ -18,18 +18,18 @@ trait PersisterTrait
         $this->writer->write( json_encode( $standard_objects ) );    
     }  
 
-    private function createDatetimeDataObject( array $date_time_array ): DatetimeDataObjectInterface
+    private function createDateTimeDataObject( array $date_time_array ): DateTimeDataObjectInterface
     {
-        return $this->Datetime_data_object_factory->create( $date_time_array[ 'year' ], $date_time_array[ 'month' ], $date_time_array[ 'day' ], $date_time_array[ 'hour' ], $date_time_array[ 'minute' ], $date_time_array[ 'second' ]  );
+        return $this->datetime_data_object_factory->create( $date_time_array[ 'year' ], $date_time_array[ 'month' ], $date_time_array[ 'day' ], $date_time_array[ 'hour' ], $date_time_array[ 'minute' ], $date_time_array[ 'second' ]  );
     }    
     
     private function createHistoryDataObject( array $history_data ): HistoryDataObjectInterface
     {
-        $created_date_time = $this->createDatetimeDataObject( $history_data[ 'created_datetime' ] );
+        $created_date_time = $this->createDateTimeDataObject( $history_data[ 'created_datetime' ] );
         $updated_date_time = null;
         if( isset( $history_data[ 'updated_datetime' ] ) )
         {
-            $updated_date_time = $this->createDatetimeDataObject( $history_data[ 'updated_datetime' ] );            
+            $updated_date_time = $this->createDateTimeDataObject( $history_data[ 'updated_datetime' ] );            
         }
         
         return $this->history_data_object_factory->create( $history_data[ 'created_by' ], $created_date_time, $history_data[ 'updated_by' ], $updated_date_time );
@@ -53,9 +53,9 @@ trait PersisterTrait
         return $standard_objects[ $guid ];
     }
     
-    private function setDatetimeDataObjectFactory( DatetimeDataObjectFactoryInterface $Datetime_data_object_factory ): void
+    private function setDateTimeDataObjectFactory( DateTimeDataObjectFactoryInterface $datetime_data_object_factory ): void
     {
-        $this->Datetime_data_object_factory = $Datetime_data_object_factory;
+        $this->datetime_data_object_factory = $datetime_data_object_factory;
     }
     
     private function setHistoryDataObjectFactory( HistoryDataObjectFactoryInterface $history_data_object_factory ): void

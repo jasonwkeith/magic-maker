@@ -9,6 +9,9 @@ interface HistoryTestDataFactoryInterface
     public function createArray( int $number ): array;    
     public function createDefault(): HistoryInterface;
     public function createCollection( int $number ): HistoryCollectionInterface;
+    public function createModified(): HistoryInterface;
     public function createRaw( int $number ): HistoryDataTransferObject;
     public function createRawDefault(): HistoryDataTransferObject;     
+    public function createUnmodified(): HistoryInterface;    
+    
 }

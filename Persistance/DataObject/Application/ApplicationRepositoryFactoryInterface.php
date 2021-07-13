@@ -6,6 +6,6 @@ use JasonWKeith\Application\Boundary\Persistance\Application\ApplicationReposito
 
 interface ApplicationRepositoryFactoryInterface
 {
-    public function __construct( ApplicationPersisterInterface $persister, ApplicationMapperInterface $application_mapper );
+    public function __construct(  ApplicationArchiverInterface $archiver, ApplicationPersisterInterface $persister, ApplicationMapperInterface $application_mapper );
     public function create(): ApplicationRepositoryInterface;
 }

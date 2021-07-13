@@ -9,4 +9,6 @@ interface ApplicationRawTestDataFactoryInterface
     public function __construct( HistoryTestDataFactoryInterface $history_test_data_factory );
     public function create( int $number ): ApplicationDataTransferObject;
     public function createDefault(): ApplicationDataTransferObject;
+    public function createModified(): ApplicationDataTransferObject;      
+    public function createUnmodified(): ApplicationDataTransferObject;        
 }

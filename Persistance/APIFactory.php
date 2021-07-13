@@ -11,6 +11,8 @@ use JasonWKeith\Domain\Infrastructure\Exception\ExceptionFactoryTrait;
 
 use JasonWKeith\Persistance\Infrastructure\API\APIFactory as InfrastructureAPIFactory;
 
+use JasonWKeith\Persistance\DataObject\Application\ApplicationArchiverFactory;
+use JasonWKeith\Persistance\DataObject\Application\ApplicationArchiverInterface;
 use JasonWKeith\Persistance\DataObject\Application\ApplicationDataObjectFactory;
 use JasonWKeith\Persistance\DataObject\Application\ApplicationMapperFactory;
 use JasonWKeith\Persistance\DataObject\Application\ApplicationPersisterFactory;
@@ -41,9 +43,9 @@ use JasonWKeith\Persistance\DataObject\User\UserPersisterFactory;
 use JasonWKeith\Persistance\DataObject\User\UserRepositoryFactory;
 use JasonWKeith\Persistance\DataObject\User\UserRepositoryFactoryInterface;
 
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeMapperInterface;
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeMapperFactory;
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectFactory;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeMapperInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeMapperFactory;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectFactory;
 
 use JasonWKeith\Persistance\Infrastructure\History\HistoryMapperInterface;
 use JasonWKeith\Persistance\Infrastructure\History\HistoryMapperFactory;
@@ -54,14 +56,15 @@ class APIFactory implements APIFactoryInterface
 {
     use ExceptionFactoryTrait;
 
-    public function __construct( string $root_storage_path, string $storage_extension, DomainAPIInterface $domain_api )
+    public function __construct( string $root_archive_path, string $root_storage_path, string $storage_extension, DomainAPIInterface $domain_api )
     {
         $this->domain_api = $domain_api;
         $this->setExceptionFactory( $this->domain_api->createExceptionFactory() );
+        $this->setRootArchivePath( $root_archive_path );
         $this->setRootStoragePath( $root_storage_path );
         $this->setStorageExtension( $storage_extension );
         $this->infrastructure_api_factory = new InfrastructureAPIFactory;
-        $this->infrastructure_api = $this->infrastructure_api_factory->create( $this->getStoragePath(), $this->getExceptionFactory() );
+        $this->infrastructure_api = $this->infrastructure_api_factory->create( $this->getStoragePath(), $domain_api, $this->getExceptionFactory() );
     }
 
     public function create(): APIInterface
@@ -75,22 +78,34 @@ class APIFactory implements APIFactoryInterface
             $this->createUserRepositoryFactory()            
         );
     }    
+
+    private function createApplicationArchiver( string $data_object_handle ): ApplicationArchiverInterface
+    {
+        $parameters = $this->infrastructure_api->createFileConnectionParameters( $this->getArchivePath( $data_object_handle ), $data_object_handle, $this->getArchiveExtension() );
+        $reader = $this->infrastructure_api->createArchiveReader( $parameters );
+        $writer = $this->infrastructure_api->createArchiveWriter( $parameters );
+        
+        $archiver_factory = new ApplicationArchiverFactory( $this->getExceptionFactory(), $reader, $writer, new DateTimeDataObjectFactory );
+
+        return $archiver_factory->create();
+    }    
     
     private function createApplicationRepositoryFactory(): ApplicationRepositoryFactoryInterface
     {
         $file_handle = "application";
+        
+        $archiver = $this->createApplicationArchiver( $file_handle );
 
-        $mapper_factory = new ApplicationMapperFactory( $this->domain_api->createApplicationFactory(), new ApplicationDataObjectFactory, $this->createHistoryMapper() );
-        $mapper = $mapper_factory->create();
+        $mapper = $this->infrastructure_api->createApplicationMapper();
      
         $parameters = $this->infrastructure_api->createFileConnectionParameters( $this->getStoragePath(), $file_handle, $this->getStorageExtension() );
         $reader = $this->infrastructure_api->createReaderConnection( $parameters );
         $writer = $this->infrastructure_api->createWriterConnection( $parameters );
         
-        $persister_factory = new ApplicationPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new DatetimeDataObjectFactory, new HistoryDataObjectFactory ,new ApplicationDataObjectFactory );
+        $persister_factory = new ApplicationPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new DateTimeDataObjectFactory, new HistoryDataObjectFactory ,new ApplicationDataObjectFactory );
         $persister = $persister_factory->create();  
         
-        return new ApplicationRepositoryFactory( $persister, $mapper );
+        return new ApplicationRepositoryFactory( $archiver, $persister, $mapper );
     }     
     
     private function createBookRepositoryFactory(): BookRepositoryFactoryInterface
@@ -104,7 +119,7 @@ class APIFactory implements APIFactoryInterface
         $reader = $this->infrastructure_api->createReaderConnection( $parameters );
         $writer = $this->infrastructure_api->createWriterConnection( $parameters );
         
-        $persister_factory = new BookPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new DatetimeDataObjectFactory, new HistoryDataObjectFactory, new BookDataObjectFactory );
+        $persister_factory = new BookPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new DateTimeDataObjectFactory, new HistoryDataObjectFactory, new BookDataObjectFactory );
         $persister = $persister_factory->create();  
         
         return new BookRepositoryFactory( $persister, $mapper );
@@ -121,21 +136,21 @@ class APIFactory implements APIFactoryInterface
         $reader = $this->infrastructure_api->createReaderConnection( $parameters );
         $writer = $this->infrastructure_api->createWriterConnection( $parameters );
         
-        $persister_factory = new ContentPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new DatetimeDataObjectFactory, new HistoryDataObjectFactory, new ContentDataObjectFactory );
+        $persister_factory = new ContentPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new DateTimeDataObjectFactory, new HistoryDataObjectFactory, new ContentDataObjectFactory );
         $persister = $persister_factory->create();  
         
         return new ContentRepositoryFactory( $persister, $mapper );
     }     
     
-    private function createDatetimeMapper(): DatetimeMapperInterface
+    private function createDateTimeMapper(): DateTimeMapperInterface
     {
-        $factory = new DatetimeMapperFactory( $this->domain_api->createDatetimeFactory(), new DatetimeDataObjectFactory );
+        $factory = new DateTimeMapperFactory( $this->domain_api->createDateTimeFactory(), new DateTimeDataObjectFactory );
         return $factory->create();
     }
     
     private function createHistoryMapper(): HistoryMapperInterface
     {
-        $factory = new HistoryMapperFactory( $this->domain_api->createHistoryFactory(), new HistoryDataObjectFactory, $this->createDatetimeMapper() );
+        $factory = new HistoryMapperFactory( $this->domain_api->createHistoryFactory(), new HistoryDataObjectFactory, $this->createDateTimeMapper() );
         return $factory->create();
     }
     
@@ -150,7 +165,7 @@ class APIFactory implements APIFactoryInterface
         $reader = $this->infrastructure_api->createReaderConnection( $parameters );
         $writer = $this->infrastructure_api->createWriterConnection( $parameters );
         
-        $persister_factory = new PersonPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new DatetimeDataObjectFactory, new HistoryDataObjectFactory, new PersonDataObjectFactory );
+        $persister_factory = new PersonPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new DateTimeDataObjectFactory, new HistoryDataObjectFactory, new PersonDataObjectFactory );
         $persister = $persister_factory->create();  
         
         return new PersonRepositoryFactory( $persister, $mapper );
@@ -173,11 +188,21 @@ class APIFactory implements APIFactoryInterface
         $reader = $this->infrastructure_api->createReaderConnection( $parameters );
         $writer = $this->infrastructure_api->createWriterConnection( $parameters );
         
-        $persister_factory = new UserPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new DatetimeDataObjectFactory, new HistoryDataObjectFactory, new UserDataObjectFactory );
+        $persister_factory = new UserPersisterFactory( $this->getExceptionFactory(), $writer, $reader, new DateTimeDataObjectFactory, new HistoryDataObjectFactory, new UserDataObjectFactory );
         $persister = $persister_factory->create();  
         
         return new UserRepositoryFactory( $persister, $mapper );
-    }      
+    }     
+    
+    private function getArchivePath( string $data_object_handle ): string
+    {
+        return $this->root_archive_path . "$data_object_handle/";
+    }
+    
+    private function getArchiveExtension(): string
+    {
+        return "archive";
+    }
     
     private function getStorageExtension(): string
     {
@@ -187,6 +212,11 @@ class APIFactory implements APIFactoryInterface
     private function getStoragePath(): string
     {
         return $this->root_storage_path;
+    }    
+    
+    private function setRootArchivePath( string $path ): void
+    {
+        $this->root_archive_path = $path;
     }    
     
     private function setRootStoragePath( string $path ): void

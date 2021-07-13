@@ -3,6 +3,7 @@ declare( strict_types = 1 );
 namespace JasonWKeith\Persistance\Infrastructure\WriterConnection;
 
 use PHPUnit\Framework\TestCase;
+use JasonWKeith\Domain\APIFactory as DomainAPIFactory;
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionInterface;
 use JasonWKeith\Domain\Infrastructure\Exception\ExceptionFactory;
 use JasonWKeith\Persistance\Infrastructure\API\APIFactory as InfrastructureAPIFactory;
@@ -38,10 +39,12 @@ class FileWriterConnectionTest extends TestCase
         $this->file_extension = "dev_data";
         $this->test_data = $this->createRandomString( 1000 );
         
+        $this->domain_api_factory = new DomainAPIFactory;
+        $this->domain_api = $this->domain_api_factory->create();        
 
         $this->exception_factory = new ExceptionFactory;
         $this->infrastructure_api_factory = new InfrastructureAPIFactory;
-        $this->infrastructure_api = $this->infrastructure_api_factory->create( TestConstants::STORAGE_PATH, $this->exception_factory );
+        $this->infrastructure_api = $this->infrastructure_api_factory->create( TestConstants::STORAGE_PATH, $this->domain_api, $this->exception_factory );
         
         $this->path = $this->infrastructure_api->getStoragePath();
         $this->file_path = $this->path . $this->file_handle . "." . $this->file_extension;

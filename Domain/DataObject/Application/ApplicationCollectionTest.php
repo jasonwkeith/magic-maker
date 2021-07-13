@@ -4,7 +4,6 @@ namespace JasonWKeith\Domain\DataObject\Application;
 
 use PHPUnit\Framework\TestCase;
 use JasonWKeith\Domain\Boundary\DataObject\Application\ApplicationCollectionInterface;
-use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionInterface;
 use JasonWKeith\Domain\Infrastructure\TestDataAPIHelperTrait;
 
 class ApplicationCollectionTest extends TestCase

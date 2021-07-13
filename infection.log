@@ -10,7 +10,69 @@ Skipped mutants:
 Not Covered mutants:
 ====================
 
-1) /jasonwkeith/Persistance/Infrastructure/FileHandler/FileHandlerTrait.php:16    [M] Throw_
+1) /jasonwkeith/Domain/API.php:89    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return $this->data_object_api->createHistoryFactory();
+     }
+-    public function createHistoryTestDataFactory() : HistoryTestDataFactoryInterface
++    protected function createHistoryTestDataFactory() : HistoryTestDataFactoryInterface
+     {
+         return $this->test_data_api->createHistoryTestDataFactory();
+     }
+
+
+2) /jasonwkeith/Domain/Infrastructure/Collection/CollectionTrait.php:27    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return $this->_collection_trait_collection;
+     }
+-    public function getSize() : int
++    protected function getSize() : int
+     {
+         return count($this->_collection_trait_collection);
+     }
+ }
+
+
+3) /jasonwkeith/Domain/Infrastructure/DateTime/DateTimeFactory.php:22    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return new DateTime($this->exception_factory, $date->year, $date->month, $date->day, $date->hour, $date->minute, $date->second);
+     }
+-    public function createDTO() : DateTimeDataTransferObject
++    protected function createDTO() : DateTimeDataTransferObject
+     {
+         return new DateTimeDataTransferObject();
+     }
+ }
+
+
+4) /jasonwkeith/Domain/Interactor/DataObjectAPI/DataObjectAPI.php:65    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+     {
+         return $this->person_factory;
+     }
+-    public function createTextFactory() : TextFactoryInterface
++    protected function createTextFactory() : TextFactoryInterface
+     {
+         return $this->text_factory;
+     }
+
+
+5) /jasonwkeith/Persistance/Infrastructure/FileHandler/FileHandlerTrait.php:16    [M] Throw_
 
 --- Original
 +++ New

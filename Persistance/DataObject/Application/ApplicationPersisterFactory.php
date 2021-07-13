@@ -3,7 +3,7 @@ declare( strict_types = 1 );
 namespace JasonWKeith\Persistance\DataObject\Application;
 
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectFactoryInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectFactoryInterface;
 use JasonWKeith\Persistance\Infrastructure\Exception\ExceptionFactoryTrait;
 use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectFactoryInterface;
 use JasonWKeith\Persistance\Infrastructure\ReaderConnection\ReaderConnectionInterface;
@@ -16,7 +16,7 @@ class ApplicationPersisterFactory implements ApplicationPersisterFactoryInterfac
         ExceptionFactoryInterface $exception_Factory, 
         WriterConnectionInterface $writer, 
         ReaderConnectionInterface $reader, 
-        DatetimeDataObjectFactoryInterface $date_time_factory, 
+        DateTimeDataObjectFactoryInterface $date_time_factory, 
         HistoryDataObjectFactoryInterface $history_factory,
         ApplicationDataObjectFactoryInterface $data_object_factory
         )

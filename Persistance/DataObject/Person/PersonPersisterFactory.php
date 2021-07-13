@@ -3,7 +3,7 @@ declare( strict_types = 1 );
 namespace JasonWKeith\Persistance\DataObject\Person;
 
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectFactoryInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectFactoryInterface;
 use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectFactoryInterface;
 use JasonWKeith\Persistance\Infrastructure\ReaderConnection\ReaderConnectionInterface;
 use JasonWKeith\Persistance\Infrastructure\WriterConnection\WriterConnectionInterface;
@@ -15,7 +15,7 @@ class PersonPersisterFactory implements PersonPersisterFactoryInterface
         ExceptionFactoryInterface $exception_factory, 
         WriterConnectionInterface $writer, 
         ReaderConnectionInterface $reader, 
-        DatetimeDataObjectFactoryInterface $datetime_data_object_factory, 
+        DateTimeDataObjectFactoryInterface $datetime_data_object_factory, 
         HistoryDataObjectFactoryInterface $history_data_object_factory, 
         PersonDataObjectFactoryInterface $data_object_factory 
     )

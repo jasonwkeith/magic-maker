@@ -1,8 +1,8 @@
 <?php
 declare( strict_types = 1 );
-namespace JasonWKeith\Persistance\Infrastructure\Datetime;
+namespace JasonWKeith\Persistance\Infrastructure\DateTime;
 
-class DatetimeDataObjectFactory implements DatetimeDataObjectFactoryInterface
+class DateTimeDataObjectFactory implements DateTimeDataObjectFactoryInterface
 {
     public function create
     (
@@ -12,9 +12,9 @@ class DatetimeDataObjectFactory implements DatetimeDataObjectFactoryInterface
         int $hour,
         int $minute,
         int $second
-    ): DatetimeDataObjectInterface
+    ): DateTimeDataObjectInterface
     {
-        return new DatetimeDataObject
+        return new DateTimeDataObject
         ( 
             $year,
             $month,

@@ -9,7 +9,6 @@ interface PersonTestDataFactoryInterface
     public function createDefault(): PersonInterface;
     public function createRaw( int $number ): PersonDataTransferObject;
     public function createRawDefault(): PersonDataTransferObject;
-    public function createPersonArray( int $number ): array;
     public function createCollection( int $number ): PersonCollectionInterface;
     public function createRawWithMiddlename(): PersonDataTransferObject;
     public function createRawWithoutMiddlename(): PersonDataTransferObject;  

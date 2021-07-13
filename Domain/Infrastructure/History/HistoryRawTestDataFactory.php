@@ -64,4 +64,24 @@ class HistoryRawTestDataFactory implements HistoryRawTestDataFactoryInterface
     {
        return new HistoryDataTransferObject;
     }   
+    
+    public function createModified(): HistoryDataTransferObject
+    {
+        $data_transfer_object = $this->createUnmodified();
+        $data_transfer_object->updated_by = "f3205bd2-9c08-4ef7-aaec-0fd40d05bada";
+        $data_transfer_object->updated_date = $this->date_time_test_data_factory->create( 11 );
+        
+        return $data_transfer_object;
+    }
+    
+    public function createUnmodified(): HistoryDataTransferObject
+    {
+        $data_transfer_object = new HistoryDataTransferObject;
+        $data_transfer_object->created_by = "6abda769-eacb-4026-b20b-b694d94cabf8";
+        $data_transfer_object->created_date = $this->date_time_test_data_factory->create( 0 );
+        $data_transfer_object->updated_by = null;
+        $data_transfer_object->updated_date = null;
+        
+        return $data_transfer_object;
+    }    
 }

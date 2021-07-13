@@ -51,5 +51,21 @@ class ApplicationRawTestDataFactory implements ApplicationRawTestDataFactoryInte
         $dto->history = $this->data_transfer_objects[ 0 ]->history = $this->history_test_data_factory->create( 0 );
         
         return $dto;
-    }      
+    }   
+    
+    public function createModified(): ApplicationDataTransferObject
+    {
+        $data_transfer_object = $this->create( 0 );
+        $data_transfer_object->name = "New and Improved: " . $data_transfer_object->name;        
+        $data_transfer_object->history = $this->history_test_data_factory->createModified();
+        return $data_transfer_object;
+    }
+    
+    public function createUnmodified(): ApplicationDataTransferObject
+    {
+        $data_transfer_object = $this->create( 0 );
+
+        $data_transfer_object->history = $this->history_test_data_factory->createUnModified();
+        return $data_transfer_object;
+    }
 }

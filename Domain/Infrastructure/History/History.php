@@ -12,7 +12,7 @@ class History implements HistoryInterface
     private $updated;
     private $updated_by;
 
-    public function __construct( DateTimeInterface $created_date, string $created_by, ?DateTimeInterface $updated_date, string $updated_by )
+    public function __construct( DateTimeInterface $created_date, string $created_by, ?DateTimeInterface $updated_date, ?string $updated_by )
     {
         $this->setCreatedBy( $created_by );
         $this->setCreatedDate( $created_date );
@@ -35,7 +35,7 @@ class History implements HistoryInterface
         return $this->updated;
     }
     
-    public function getUpdatedBy(): string
+    public function getUpdatedBy(): ?string
     {
         return $this->updated_by;
     } 
@@ -55,7 +55,7 @@ class History implements HistoryInterface
         $this->updated = $updated_date;
     }
     
-    public function setUpdatedBy( string $updated_by ): void
+    public function setUpdatedBy( ?string $updated_by ): void
     {
         $this->updated_by = $updated_by;
     }     

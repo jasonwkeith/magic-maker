@@ -22,7 +22,7 @@ trait HistoryTrait
         return $this->_history_trait->getUpdatedDate();
     }
     
-    public function getUpdatedBy(): string
+    public function getUpdatedBy(): ?string
     {
         return $this->_history_trait->getUpdatedBy();
     }     

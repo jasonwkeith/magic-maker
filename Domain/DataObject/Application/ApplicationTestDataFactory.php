@@ -51,6 +51,16 @@ class ApplicationTestDataFactory implements ApplicationTestDataFactoryInterface
         return $this->application_factory->create( $this->application_raw_test_data_factory->createDefault() );
     }
     
+    public function createModified(): ApplicationInterface
+    {
+        return $this->application_factory->create( $this->application_raw_test_data_factory->createModified() );
+    }    
+    
+    public function createUnmodified(): ApplicationInterface
+    {
+        return $this->application_factory->create( $this->application_raw_test_data_factory->createUnmodified() );
+    }
+    
     public function createRaw( int $number ): ApplicationDataTransferObject
     {
         return $this->application_raw_test_data_factory->create( $number );

@@ -4,8 +4,8 @@ namespace JasonWKeith\Persistance\DataObject\User;
 
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
 use JasonWKeith\Persistance\Infrastructure\Exception\ExceptionFactoryTrait;
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectFactoryInterface;
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectFactoryInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectInterface;
 use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectFactoryInterface;
 use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectInterface;
 use JasonWKeith\Persistance\Infrastructure\ReaderConnection\ReaderConnectionInterface;
@@ -18,7 +18,7 @@ class UserPersisterFactory implements UserPersisterFactoryInterface
         ExceptionFactoryInterface $exception_Factory, 
         WriterConnectionInterface $writer, 
         ReaderConnectionInterface $reader, 
-        DatetimeDataObjectFactoryInterface $datetime_data_object_factory, 
+        DateTimeDataObjectFactoryInterface $datetime_data_object_factory, 
         HistoryDataObjectFactoryInterface $history_data_object_factory,             
         UserDataObjectFactoryInterface $data_object_factory
     )

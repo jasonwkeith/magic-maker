@@ -6,14 +6,15 @@ use JasonWKeith\Application\Boundary\Persistance\Application\ApplicationReposito
 
 class ApplicationRepositoryFactory implements ApplicationRepositoryFactoryInterface
 {
-    public function __construct( ApplicationPersisterInterface $persister, ApplicationMapperInterface $application_mapper )
+    public function __construct( ApplicationArchiverInterface $archiver, ApplicationPersisterInterface $persister, ApplicationMapperInterface $application_mapper )
     {
+        $this->archiver = $archiver;
         $this->persister = $persister;
         $this->application_mapper = $application_mapper;
     }
     
     public function create(): ApplicationRepositoryInterface
     {
-        return new ApplicationRepository( $this->persister, $this->application_mapper );
+        return new ApplicationRepository( $this->archiver, $this->persister, $this->application_mapper );
     }
 }

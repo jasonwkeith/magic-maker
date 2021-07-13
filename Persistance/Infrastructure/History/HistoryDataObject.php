@@ -2,16 +2,16 @@
 declare( strict_types = 1 );
 namespace JasonWKeith\Persistance\Infrastructure\History;
 
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectInterface;
 
 class HistoryDataObject implements HistoryDataObjectInterface
 {
     public function __construct
     (  
         string $created_by,
-        DatetimeDataObjectInterface $created_datetime,
+        DateTimeDataObjectInterface $created_datetime,
         ?string $updated_by,
-        ?DatetimeDataObjectInterface $updated_datetime
+        ?DateTimeDataObjectInterface $updated_datetime
     )
     {
         $this->created_by = $created_by;
@@ -30,12 +30,12 @@ class HistoryDataObject implements HistoryDataObjectInterface
         return $this->updated_by;
     }
     
-    public function getCreatedDatetime(): DatetimeDataObjectInterface
+    public function getCreatedDatetime(): DateTimeDataObjectInterface
     {
         return $this->created_datetime;
     }
     
-    public function getUpdatedDatetime(): ?DatetimeDataObjectInterface
+    public function getUpdatedDatetime(): ?DateTimeDataObjectInterface
     {
         return $this->updated_datetime;
     }

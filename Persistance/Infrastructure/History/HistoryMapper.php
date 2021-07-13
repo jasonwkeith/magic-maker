@@ -2,22 +2,22 @@
 declare( strict_types = 1 );
 namespace JasonWKeith\Persistance\Infrastructure\History;
 
-use JasonWKeith\Domain\Boundary\Infrastructure\Datetime\DatetimeInterface;
+use JasonWKeith\Domain\Boundary\Infrastructure\DateTime\DateTimeInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryInterface;
 use JasonWKeith\Domain\Boundary\Infrastructure\History\HistoryFactoryInterface;
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeMapperInterface;
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeMapperInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectInterface;
 
 class HistoryMapper implements HistoryMapperInterface
 {
-    public function __construct( HistoryFactoryInterface $history_factory, HistoryDataObjectFactoryInterface $history_data_object_factory, DatetimeMapperInterface $Datetime_mapper )
+    public function __construct( HistoryFactoryInterface $history_factory, HistoryDataObjectFactoryInterface $history_data_object_factory, DateTimeMapperInterface $Datetime_mapper )
     {
         $this->history_factory = $history_factory;
         $this->history_data_object_factory = $history_data_object_factory;
         $this->Datetime_mapper = $Datetime_mapper;
     }
     
-    public function createDataObject( string $created_by, DatetimeInterface $created_date, ?string $updated_by, ?DatetimeInterface $updated_date ): HistoryDataObject
+    public function createDataObject( string $created_by, DateTimeInterface $created_date, ?string $updated_by, ?DateTimeInterface $updated_date ): HistoryDataObject
     {
         $updated_date_object = null;
         if( $updated_date )
@@ -44,7 +44,7 @@ class HistoryMapper implements HistoryMapperInterface
         return  $this->history_factory->create( $history_dto );
     }
     
-    private function createDatetimeEntity( ?DatetimeDataObjectInterface $Datetime_data_object ): ?DatetimeInterface
+    private function createDatetimeEntity( ?DateTimeDataObjectInterface $Datetime_data_object ): ?DateTimeInterface
     {
         if( is_null( $Datetime_data_object ) )
         {

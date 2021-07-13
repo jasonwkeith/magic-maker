@@ -4,8 +4,8 @@ namespace JasonWKeith\Persistance\DataObject\Content;
 
 use JasonWKeith\Domain\Boundary\Infrastructure\Exception\ExceptionFactoryInterface;
 use JasonWKeith\Persistance\Infrastructure\Exception\ExceptionFactoryTrait;
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectFactoryInterface;
-use JasonWKeith\Persistance\Infrastructure\Datetime\DatetimeDataObjectInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectFactoryInterface;
+use JasonWKeith\Persistance\Infrastructure\DateTime\DateTimeDataObjectInterface;
 use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectFactoryInterface;
 use JasonWKeith\Persistance\Infrastructure\History\HistoryDataObjectInterface;
 use JasonWKeith\Persistance\Infrastructure\ReaderConnection\ReaderConnectionInterface;
@@ -22,7 +22,7 @@ class ContentPersister implements ContentPersisterInterface
         ExceptionFactoryInterface $exception_Factory, 
         WriterConnectionInterface $writer, 
         ReaderConnectionInterface $reader, 
-        DatetimeDataObjectFactoryInterface $Datetime_data_object_factory, 
+        DateTimeDataObjectFactoryInterface $Datetime_data_object_factory, 
         HistoryDataObjectFactoryInterface $history_data_object_factory,      
         ContentDataObjectFactoryInterface $data_object_factory 
     )
@@ -30,7 +30,7 @@ class ContentPersister implements ContentPersisterInterface
         $this->setExceptionFactory( $exception_Factory );
         $this->writer = $writer;
         $this->reader = $reader;
-        $this->setDatetimeDataObjectFactory( $Datetime_data_object_factory );
+        $this->setDateTimeDataObjectFactory( $Datetime_data_object_factory );
         $this->setHistoryDataObjectFactory( $history_data_object_factory );             
         $this->data_object_factory = $data_object_factory;
     }

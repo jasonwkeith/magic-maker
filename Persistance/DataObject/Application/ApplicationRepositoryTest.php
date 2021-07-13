@@ -25,7 +25,7 @@ class ApplicationRepositoryTest extends TestCase
         $this->test_data_api = $this->createTestDataAPI();
         $this->test_data_factory = $this->test_data_api->createApplicationTestDataFactory();
         
-        $this->api_factory = new APIFactory( TestConstants::STORAGE_PATH, TestConstants::STORAGE_EXTENSION, $this->domain_api );
+        $this->api_factory = new APIFactory( TestConstants::ARCHIVE_PATH, TestConstants::STORAGE_PATH, TestConstants::STORAGE_EXTENSION, $this->domain_api );
         $this->api = $this->api_factory->create();
 
         $this->system_under_test = $this->api->createApplicationRepository();
